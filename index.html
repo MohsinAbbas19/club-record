@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Royal Oak Club - Premium Menu</title>
+    <title>FlexiPay - Flexible Payment Solutions</title>
     <style>
         * {
             margin: 0;
@@ -12,1710 +12,981 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 25%, #ff69b4 50%, #1a1a1a 75%, #000000 100%);
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0)"/></radialGradient></defs><circle cx="100" cy="100" r="50" fill="url(%23a)"/><circle cx="300" cy="200" r="30" fill="url(%23a)"/><circle cx="500" cy="150" r="40" fill="url(%23a)"/><circle cx="700" cy="300" r="25" fill="url(%23a)"/><circle cx="900" cy="100" r="35" fill="url(%23a)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            animation: slideInLeft 1s ease-out 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            animation: slideInLeft 1s ease-out 0.4s both;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: slideInRight 1s ease-out 0.6s both;
+        }
+
+        .payment-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            animation: cardFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .payment-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .step:nth-child(1) { animation-delay: 1s; }
+        .step:nth-child(2) { animation-delay: 1.2s; }
+        .step:nth-child(3) { animation-delay: 1.4s; }
+
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: #f8fafc;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
 
-        header {
+        .section-title {
             text-align: center;
-            margin-bottom: 40px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 60px;
         }
 
-        h1 {
-            font-size: 3em;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            margin-bottom: 10px;
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 15px;
         }
 
-        .subtitle {
-            font-size: 1.2em;
-            color: #f0f0f0;
-            opacity: 0.9;
+        .section-title p {
+            font-size: 1.2rem;
+            color: #718096;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .menu-navigation {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-container {
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
         }
 
-        .nav-column {
-            background: rgba(0, 0, 0, 0.6);
+        .feature-card {
+            background: white;
+            padding: 40px;
             border-radius: 15px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 105, 180, 0.3);
-        }
-
-        .nav-column h3 {
-            color: #fff;
-            font-size: 1.2em;
-            margin-bottom: 15px;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            border-bottom: 2px solid rgba(255, 105, 180, 0.5);
-            padding-bottom: 10px;
-        }
-
-        .nav-items {
-            max-height: 200px;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
-        }
-
-        .nav-items::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .nav-items::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 3px;
-        }
-
-        .nav-items::-webkit-scrollbar-thumb {
-            background: rgba(255, 105, 180, 0.5);
-            border-radius: 3px;
-        }
-
-        .nav-item {
-            color: #f0f0f0;
-            font-size: 0.9em;
-            padding: 8px 0;
-            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255, 105, 180, 0.2);
-        }
-
-        .nav-item:hover {
-            color: #ff69b4;
-            transform: translateX(5px);
-            text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.5);
-        }
-
-        .nav-item:last-child {
-            border-bottom: none;
-        }
-
-        .search-container {
             position: relative;
-            margin-bottom: 30px;
+            overflow: hidden;
         }
 
-        .search-bar {
-            width: 100%;
-            padding: 15px 50px 15px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 50px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
-            transition: all 0.3s ease;
-            color: #fff;
-            border: 1px solid rgba(255, 105, 180, 0.3);
-        }
-
-        .search-bar::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .search-bar:focus {
-            outline: none;
-            box-shadow: 0 6px 30px rgba(255, 105, 180, 0.5);
-            transform: translateY(-2px);
-            border-color: #ff69b4;
-        }
-
-        .search-icon {
+        .feature-card::before {
+            content: '';
             position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #ff69b4;
-            font-size: 20px;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
         }
 
-        .not-found {
-            text-align: center;
-            padding: 60px 20px;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            margin: 20px 0;
-            display: none;
-            border: 1px solid rgba(255, 105, 180, 0.3);
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
         }
 
-        .not-found h2 {
-            color: #fff;
-            font-size: 2em;
-            margin-bottom: 15px;
-        }
-
-        .not-found p {
-            color: #f0f0f0;
-            font-size: 1.1em;
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .menu-item {
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.2);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 45px rgba(255, 105, 180, 0.4);
-            border-color: rgba(255, 105, 180, 0.5);
-        }
-
-        .item-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #ff69b4, #000000);
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
-            font-size: 60px;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .item-name {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 10px;
-            text-align: center;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .item-price {
-            font-size: 1.5em;
-            color: #ff69b4;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .buy-button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(45deg, #ff69b4, #000000);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .buy-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
-            background: linear-gradient(45deg, #000000, #ff69b4);
-        }
-
-        .category-section {
-            margin-bottom: 40px;
-        }
-
-        .category-title {
-            font-size: 2em;
-            color: #fff;
-            text-align: center;
             margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 105, 180, 0.3);
+            font-size: 2rem;
         }
 
-        /* Popup Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
+        .feature-card h3 {
+            font-size: 1.4rem;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #718096;
+            line-height: 1.8;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+        }
+
+        .how-it-works::before {
+            content: '';
+            position: absolute;
             top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0)"/></linearGradient></defs><polygon points="0,20 100,0 100,20" fill="url(%23a)"/></svg>') repeat-x;
+            animation: wave 3s ease-in-out infinite;
         }
 
-        .modal-content {
-    background-color: #2d2d2d;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #444;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 500px;
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
-}
-
-
-        .close {
-            color: #ff69b4;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        @keyframes wave {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-50px); }
         }
 
-        .close:hover {
-            color: #fff;
-            transform: scale(1.2);
-        }
-
-        .modal h2 {
-            color: #fff;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 2em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            color: #fff;
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 1.1em;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            font-size: 16px;
-            border: 1px solid rgba(255, 105, 180, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #ff69b4;
-            box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
-        }
-
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .item-details {
-            background: rgba(255, 105, 180, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 105, 180, 0.3);
-        }
-
-        .item-details h3 {
-            color: #ff69b4;
-            margin-bottom: 10px;
-        }
-
-        .item-details p {
-            color: #fff;
-            margin-bottom: 5px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #ff69b4, #000000);
+        .how-it-works .section-title h2,
+        .how-it-works .section-title p {
             color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
-            background: linear-gradient(45deg, #000000, #ff69b4);
-        }
-
-        /* Client Bills Section */
-        .client-bills {
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
             margin-top: 60px;
         }
 
-        .bills-title {
-            font-size: 2.5em;
-            color: #fff;
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
+        .step-card {
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 105, 180, 0.3);
-        }
-
-        .client-card {
-            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #000000 100%);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
-            border: 2px solid rgba(255, 105, 180, 0.4);
-            backdrop-filter: blur(10px);
+            padding: 30px;
+            text-align: center;
             transition: all 0.3s ease;
         }
 
-        .client-card:hover {
+        .step-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.5);
+            background: rgba(255, 255, 255, 0.15);
         }
 
-        .client-header {
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            border-radius: 50%;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(255, 105, 180, 0.5);
-        }
-
-        .client-name {
-            font-size: 1.8em;
-            color: #fff;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
             font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            color: white;
         }
 
-        .client-phone {
-            color: #ff69b4;
-            font-size: 1.1em;
-            font-weight: bold;
+        .step-card h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
         }
 
-        .bill-details {
+        .step-card p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .benefits-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .benefits-text h2 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 30px;
+        }
+
+        .benefits-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .benefits-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+
+        .check-icon {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(45deg, #48bb78, #68d391);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .benefits-visual {
+            position: relative;
+        }
+
+        .dashboard-preview {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            transform: perspective(1000px) rotateY(-15deg);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-preview:hover {
+            transform: perspective(1000px) rotateY(-10deg);
+        }
+
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .dashboard-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 5px;
+            animation: progressFill 2s ease-out;
+        }
+
+        @keyframes progressFill {
+            from { width: 0%; }
+            to { width: 65%; }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: white;
             margin-bottom: 20px;
         }
 
-        .bill-item {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            padding: 15px;
-            border: 1px solid rgba(255, 105, 180, 0.3);
+        .cta-section p {
+            font-size: 1.2rem;
+            color: #a0aec0;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .bill-item h4 {
-            color: #ff69b4;
-            margin-bottom: 10px;
-            font-size: 1.2em;
+        /* Statistics Section */
+        .stats {
+            padding: 80px 0;
+            background: white;
         }
 
-        .bill-item p {
-            color: #fff;
-            margin-bottom: 5px;
-            font-size: 1.1em;
-        }
-
-        .amount-section {
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .amount-box {
-            background: rgba(255, 105, 180, 0.1);
-            border-radius: 10px;
-            padding: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
             text-align: center;
-            border: 1px solid rgba(255, 105, 180, 0.3);
         }
 
-        .amount-box h5 {
-            color: #ff69b4;
-            margin-bottom: 5px;
-            font-size: 1em;
+        .stat-item {
+            padding: 30px;
         }
 
-        .amount-box p {
-            color: #fff;
-            font-size: 1.3em;
+        .stat-number {
+            font-size: 3rem;
             font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            animation: countUp 2s ease-out;
         }
 
-        .balance-status {
-            text-align: center;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            font-size: 1.2em;
-            font-weight: bold;
+        .stat-label {
+            font-size: 1.1rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .balance-positive {
-            background: rgba(0, 255, 0, 0.2);
-            color: #00ff00;
-            border: 1px solid rgba(0, 255, 0, 0.5);
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .balance-negative {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff4444;
-            border: 1px solid rgba(255, 0, 0, 0.5);
-        }
-
-        .balance-zero {
-            background: rgba(255, 255, 0, 0.2);
-            color: #ffff00;
-            border: 1px solid rgba(255, 255, 0, 0.5);
-        }
-
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-container {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 15px;
-            }
-            
-            .nav-column {
-                padding: 15px;
-            }
-            
-            .nav-column h3 {
-                font-size: 1em;
-            }
-            
-            .nav-items {
-                max-height: 150px;
-            }
-            
-            .menu-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 20px;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-            
-            .item-image {
-                height: 150px;
-                font-size: 50px;
-            }
-
-            .modal-content {
-                width: 95%;
-                margin: 10% auto;
-                padding: 20px;
-            }
-
-            .bill-details {
+            .hero-content {
                 grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
             }
-
-            .amount-section {
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .benefits-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🏛️ The Royal Oak Club</h1>
-            <p class="subtitle">Premium Beverages & Refreshments</p>
-        </header>
 
-        <div class="menu-navigation">
-            <div class="nav-container">
-                <div class="nav-column">
-                    <h3>🍷 Premium Wines</h3>
-                    <div class="nav-items" id="navWines"></div>
-                </div>
-                <div class="nav-column">
-                    <h3>🥤 Soft Drinks</h3>
-                    <div class="nav-items" id="navDrinks"></div>
-                </div>
-                <div class="nav-column">
-                    <h3>💧 Premium Waters</h3>
-                    <div class="nav-items" id="navWaters"></div>
-                </div>
-                <div class="nav-column">
-                    <h3>🍺 Beers & Ales</h3>
-                    <div class="nav-items" id="navBeers"></div>
-                </div>
-                <div class="nav-column">
-                    <h3>🥃 Spirits</h3>
-                    <div class="nav-items" id="navSpirits"></div>
-                </div>
-                <div class="nav-column">
-                    <h3>☕ Hot Beverages</h3>
-                    <div class="nav-items" id="navHot"></div>
-                </div>
-                <div class="nav-column">
-                    <h3>🧃 Juices</h3>
-                    <div class="nav-items" id="navJuices"></div>
-                </div>
-                <div class="nav-column">
-                    <h3>🍸 Cocktails</h3>
-                    <div class="nav-items" id="navCocktails"></div>
+     <div id="header"></div>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Flexible Payment Solutions for Modern E-commerce</h1>
+                <p>Empower your customers with completely flexible installment payments. No fixed percentages, no restrictions - just pure payment freedom.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">
+                        🚀 Get Started
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        📺 Watch Demo
+                    </a>
                 </div>
             </div>
-        </div>
-
-        <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search for beverages, wines, or refreshments..." id="searchInput">
-            <span class="search-icon">🔍</span>
-        </div>
-
-        <div class="not-found" id="notFound">
-            <h2>🔍 Item Not Found</h2>
-            <p>Sorry, we couldn't find what you're looking for. Please try a different search term.</p>
-        </div>
-
-        <div id="menuContainer">
-            <div class="category-section">
-                <h2 class="category-title">🍷 Premium Wines</h2>
-                <div class="menu-grid" id="winesGrid"></div>
-            </div>
-
-            <div class="category-section">
-                <h2 class="category-title">🥤 Soft Drinks & Beverages</h2>
-                <div class="menu-grid" id="drinksGrid"></div>
-            </div>
-
-            <div class="category-section">
-                <h2 class="category-title">💧 Premium Waters</h2>
-                <div class="menu-grid" id="watersGrid"></div>
-            </div>
-
-            <div class="category-section">
-                <h2 class="category-title">🍺 Beers & Ales</h2>
-                <div class="menu-grid" id="beersGrid"></div>
-            </div>
-
-            <div class="category-section">
-                <h2 class="category-title">🥃 Spirits & Liqueurs</h2>
-                <div class="menu-grid" id="spiritsGrid"></div>
-            </div>
-
-            <div class="category-section">
-                <h2 class="category-title">☕ Hot Beverages</h2>
-                <div class="menu-grid" id="hotGrid"></div>
-            </div>
-
-            <div class="category-section">
-                <h2 class="category-title">🧃 Juices & Smoothies</h2>
-                <div class="menu-grid" id="juicesGrid"></div>
-            </div>
-
-            <div class="category-section">
-                <h2 class="category-title">🍸 Cocktails & Mocktails</h2>
-                <div class="menu-grid" id="cocktailsGrid"></div>
-            </div>
-        </div>
-
-        <!-- Order Modal -->
-        <div id="orderModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>📝 Place Your Order</h2>
-                <div class="item-details" id="orderItemDetails">
-                    <!-- Item details will be populated here -->
-                </div>
-                <form id="orderForm">
-                    <div class="form-group">
-                        <label for="clientName">👤 Client Name:</label>
-                        <input type="text" id="clientName" name="clientName" placeholder="Enter your full name" required>
+            <div class="hero-visual">
+                <div class="payment-card">
+                    <div class="payment-steps">
+                        <div class="step">
+                            <div class="step-icon">1</div>
+                            <div>
+                                <h4>Choose Your Amount</h4>
+                                <p>Pay any amount you want, anytime</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">2</div>
+                            <div>
+                                <h4>Track Progress</h4>
+                                <p>Monitor your payment journey</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">3</div>
+                            <div>
+                                <h4>Complete Purchase</h4>
+                                <p>Receive your product when ready</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="clientPhone">📱 Phone Number:</label>
-                        <input type="tel" id="clientPhone" name="clientPhone" placeholder="Enter your phone number" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="paymentAmount">💰 Payment Amount (£):</label>
-                        <input type="number" id="paymentAmount" name="paymentAmount" placeholder="Enter amount you're paying" min="0" step="0.01">
-                    </div>
-                    <button type="submit" class="submit-btn">Submit Order</button>
-                </form>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Client Bills Section -->
-        <div class="client-bills" id="clientBills">
-            <h2 class="bills-title">📊 Client Bills & Accounts</h2>
-            <div id="billsContainer">
-                <!-- Client bills will be populated here -->
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose FlexiPay?</h2>
+                <p>Revolutionary payment flexibility that puts customers in control and boosts your sales</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💳</div>
+                    <h3>Complete Payment Freedom</h3>
+                    <p>Unlike traditional systems that force 30% or 40% upfront payments, FlexiPay lets customers pay any amount they choose, giving them complete control over their payment schedule.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Real-time Payment Tracking</h3>
+                    <p>Advanced dashboard showing detailed payment history, remaining balance, and progress visualization. Both customers and merchants stay informed throughout the journey.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Easy Integration</h3>
+                    <p>Seamlessly integrates with Shopify, WooCommerce, and custom PHP/JavaScript platforms. Quick setup with minimal technical requirements.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Secure & Reliable</h3>
+                    <p>Bank-level security with encrypted transactions, fraud protection, and secure payment processing. Your customers' data is always protected.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Optimized</h3>
+                    <p>Beautiful, responsive design that works perfectly on all devices. Customers can make payments anywhere, anytime with ease.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Optimized for speed with instant payment processing, real-time updates, and minimal loading times. No waiting, just smooth transactions.</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How FlexiPay Works</h2>
+                <p>Simple, intuitive, and completely flexible payment process</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Customer Selects Product</h3>
+                    <p>Customer browses your store and finds the perfect product. They click on the FlexiPay option to start flexible payments.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Choose Payment Amount</h3>
+                    <p>Unlike fixed percentage systems, customers can pay any amount they want - from $1 to the full price. Complete freedom, no restrictions.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Secure Payment Processing</h3>
+                    <p>Payment is processed instantly through secure gateways. Customer receives confirmation and can track their progress immediately.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Continue When Ready</h3>
+                    <p>Customers can make additional payments at their own pace. No deadlines, no pressure - just flexibility that works for everyone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="benefits-content">
+                <div class="benefits-text">
+                    <h2>Boost Your Sales with Payment Flexibility</h2>
+                    <ul class="benefits-list">
+                        <li>
+                            <div class="check-icon">✓</div>
+                            <span>Increase conversion rates by up to 40% with flexible payment options</span>
+                        </li>
+                        <li>
+                            <div class="check-icon">✓</div>
+                            <span>Reduce cart abandonment with customer-friendly payment terms</span>
+                        </li>
+                        <li>
+                            <div class="check-icon">✓</div>
+                            <span>Attract more customers who prefer installment payments</span>
+                        </li>
+                        <li>
+                            <div class="check-icon">✓</div>
+                            <span>Complete payment history and analytics for better insights</span>
+                        </li>
+                        <li>
+                            <div class="check-icon">✓</div>
+                            <span>Automated notifications and reminders for pending payments</span>
+                        </li>
+                        <li>
+                            <div class="check-icon">✓</div>
+                            <span>24/7 customer support and comprehensive documentation</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Start Your Free Trial</a>
+                </div>
+                <div class="benefits-visual">
+                    <div class="dashboard-preview">
+                        <div class="dashboard-header">
+                            <div class="dashboard-avatar">JP</div>
+                            <div>
+                                <h4>John's Payment Progress</h4>
+                                <p>MacBook Pro 16" - $2,499</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p><strong>Paid:</strong> $1,624 (65%)</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%;"></div>
+                            </div>
+                            <p><strong>Remaining:</strong> $875</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">$2.5M+</div>
+                    <div class="stat-label">Processed Payments</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Active Merchants</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Uptime</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Payment Experience?</h2>
+                <p>Join thousands of merchants who have already boosted their sales with FlexiPay's flexible payment solutions. Start your free trial today!</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">
+                        🚀 Start Free Trial
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        📞 Schedule Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer"></div>
 
     <script>
-       // Royal Oak Club - Complete Menu & Billing System with 1000+ Items
 
-// Extensive menu data with 1000+ items
-const menuData = {
-    wines: [
-        // Premium French Wines
-        {name: "Château Margaux 2015", price: "£450", emoji: "🍷"},
-        {name: "Dom Pérignon Champagne", price: "£180", emoji: "🥂"},
-        {name: "Château Lafite Rothschild", price: "£520", emoji: "🍷"},
-        {name: "Château Mouton Rothschild", price: "£480", emoji: "🍷"},
-        {name: "Château Haut-Brion", price: "£420", emoji: "🍷"},
-        {name: "Château Pétrus", price: "£1200", emoji: "🍷"},
-        {name: "Chablis Premier Cru", price: "£55", emoji: "🍷"},
-        {name: "Burgundy Pinot Noir", price: "£75", emoji: "🍷"},
-        {name: "Bordeaux Saint-Julien", price: "£65", emoji: "🍷"},
-        {name: "Sancerre Loire Valley", price: "£45", emoji: "🍷"},
-        {name: "Côtes du Rhône", price: "£35", emoji: "🍷"},
-        {name: "Châteauneuf-du-Pape", price: "£95", emoji: "🍷"},
-        {name: "Pouilly-Fuissé", price: "£60", emoji: "🍷"},
-        {name: "Muscadet Sèvre-et-Maine", price: "£28", emoji: "🍷"},
-        {name: "Beaujolais Villages", price: "£32", emoji: "🍷"},
-        {name: "Champagne Krug", price: "£220", emoji: "🥂"},
-        {name: "Champagne Bollinger", price: "£85", emoji: "🥂"},
-        {name: "Champagne Pol Roger", price: "£75", emoji: "🥂"},
-        {name: "Champagne Taittinger", price: "£65", emoji: "🥂"},
-        {name: "Champagne Veuve Clicquot", price: "£70", emoji: "🥂"},
-        
-        // Italian Wines
-        {name: "Barolo Brunate 2017", price: "£85", emoji: "🍷"},
-        {name: "Chianti Classico", price: "£35", emoji: "🍷"},
-        {name: "Amarone della Valpolicella", price: "£95", emoji: "🍷"},
-        {name: "Prosecco di Valdobbiadene", price: "£28", emoji: "🥂"},
-        {name: "Brunello di Montalcino", price: "£120", emoji: "🍷"},
-        {name: "Vino Nobile di Montepulciano", price: "£55", emoji: "🍷"},
-        {name: "Soave Classico", price: "£25", emoji: "🍷"},
-        {name: "Gavi di Gavi", price: "£30", emoji: "🍷"},
-        {name: "Nero d'Avola", price: "£28", emoji: "🍷"},
-        {name: "Sangiovese di Romagna", price: "£32", emoji: "🍷"},
-        {name: "Montepulciano d'Abruzzo", price: "£24", emoji: "🍷"},
-        {name: "Frascati Superiore", price: "£22", emoji: "🍷"},
-        {name: "Vermentino di Sardegna", price: "£26", emoji: "🍷"},
-        {name: "Lambrusco di Modena", price: "£20", emoji: "🍷"},
-        {name: "Barbera d'Asti", price: "£38", emoji: "🍷"},
-        {name: "Dolcetto d'Alba", price: "£35", emoji: "🍷"},
-        {name: "Pinot Grigio Alto Adige", price: "£32", emoji: "🍷"},
-        {name: "Franciacorta DOCG", price: "£45", emoji: "🥂"},
-        {name: "Orvieto Classico", price: "£24", emoji: "🍷"},
-        {name: "Aglianico del Vulture", price: "£42", emoji: "🍷"},
-        
-        // Spanish Wines
-        {name: "Rioja Reserva", price: "£40", emoji: "🍷"},
-        {name: "Ribera del Duero", price: "£45", emoji: "🍷"},
-        {name: "Priorat", price: "£65", emoji: "🍷"},
-        {name: "Rías Baixas Albariño", price: "£35", emoji: "🍷"},
-        {name: "Jerez Fino", price: "£30", emoji: "🍷"},
-        {name: "Cava Brut", price: "£25", emoji: "🥂"},
-        {name: "Garnacha de Aragón", price: "£28", emoji: "🍷"},
-        {name: "Verdejo Rueda", price: "£26", emoji: "🍷"},
-        {name: "Monastrell Jumilla", price: "£30", emoji: "🍷"},
-        {name: "Godello Valdeorras", price: "£32", emoji: "🍷"},
-        
-        // German Wines
-        {name: "Riesling Auslese", price: "£38", emoji: "🍷"},
-        {name: "Gewürztraminer", price: "£30", emoji: "🍷"},
-        {name: "Pinot Noir Baden", price: "£42", emoji: "🍷"},
-        {name: "Müller-Thurgau", price: "£24", emoji: "🍷"},
-        {name: "Silvaner Franken", price: "£28", emoji: "🍷"},
-        {name: "Spätburgunder", price: "£45", emoji: "🍷"},
-        {name: "Eiswein", price: "£85", emoji: "🍷"},
-        {name: "Grüner Veltliner", price: "£35", emoji: "🍷"},
-        {name: "Dornfelder", price: "£26", emoji: "🍷"},
-        {name: "Kerner", price: "£22", emoji: "🍷"},
-        
-        // New World Wines
-        {name: "Malbec Mendoza", price: "£32", emoji: "🍷"},
-        {name: "Sauvignon Blanc", price: "£25", emoji: "🍷"},
-        {name: "Cabernet Sauvignon", price: "£42", emoji: "🍷"},
-        {name: "Chardonnay Reserve", price: "£48", emoji: "🍷"},
-        {name: "Pinot Grigio", price: "£22", emoji: "🍷"},
-        {name: "Syrah Rhône Valley", price: "£52", emoji: "🍷"},
-        {name: "Shiraz Barossa Valley", price: "£38", emoji: "🍷"},
-        {name: "Marlborough Sauvignon Blanc", price: "£35", emoji: "🍷"},
-        {name: "Napa Valley Cabernet", price: "£85", emoji: "🍷"},
-        {name: "Sonoma Pinot Noir", price: "£65", emoji: "🍷"},
-        {name: "Oregon Pinot Gris", price: "£40", emoji: "🍷"},
-        {name: "Chilean Carmenère", price: "£28", emoji: "🍷"},
-        {name: "South African Pinotage", price: "£30", emoji: "🍷"},
-        {name: "Australian Grenache", price: "£32", emoji: "🍷"},
-        {name: "Californian Zinfandel", price: "£45", emoji: "🍷"}
-    ],
-    
-    drinks: [
-        // Classic Sodas
-        {name: "Coca-Cola Classic", price: "£2.50", emoji: "🥤"},
-        {name: "Pepsi Cola", price: "£2.50", emoji: "🥤"},
-        {name: "Sprite Lemon-Lime", price: "£2.50", emoji: "🥤"},
-        {name: "7UP Original", price: "£2.50", emoji: "🥤"},
-        {name: "Fanta Orange", price: "£2.50", emoji: "🍊"},
-        {name: "Dr Pepper", price: "£2.50", emoji: "🥤"},
-        {name: "Mountain Dew", price: "£2.50", emoji: "🥤"},
-        {name: "Ginger Ale", price: "£2.50", emoji: "🥤"},
-        {name: "Tonic Water", price: "£2.50", emoji: "🥤"},
-        {name: "Soda Water", price: "£2.50", emoji: "🥤"},
-        {name: "Lemonade", price: "£2.50", emoji: "🍋"},
-        {name: "Bitter Lemon", price: "£2.50", emoji: "🍋"},
-        {name: "Schweppes Ginger Beer", price: "£2.50", emoji: "🥤"},
-        {name: "Irn-Bru", price: "£2.50", emoji: "🥤"},
-        {name: "Ribena Blackcurrant", price: "£2.50", emoji: "🥤"},
-        {name: "Vimto", price: "£2.50", emoji: "🥤"},
-        {name: "Appletiser", price: "£2.50", emoji: "🍎"},
-        {name: "Orangina", price: "£2.50", emoji: "🍊"},
-        {name: "Schweppes Lemon", price: "£2.50", emoji: "🍋"},
-        {name: "Canada Dry", price: "£2.50", emoji: "🥤"},
-        
-        // Premium Sodas
-        {name: "Fever-Tree Tonic", price: "£3.50", emoji: "🥤"},
-        {name: "Fever-Tree Ginger Beer", price: "£3.50", emoji: "🥤"},
-        {name: "Fever-Tree Elderflower", price: "£3.50", emoji: "🥤"},
-        {name: "Fever-Tree Mediterranean", price: "£3.50", emoji: "🥤"},
-        {name: "Coca-Cola Zero", price: "£2.50", emoji: "🥤"},
-        {name: "Diet Coke", price: "£2.50", emoji: "🥤"},
-        {name: "Pepsi Max", price: "£2.50", emoji: "🥤"},
-        {name: "Sprite Zero", price: "£2.50", emoji: "🥤"},
-        {name: "Fanta Zero", price: "£2.50", emoji: "🥤"},
-        {name: "7UP Free", price: "£2.50", emoji: "🥤"},
-        
-        // Energy Drinks
-        {name: "Red Bull Energy", price: "£3.50", emoji: "🥤"},
-        {name: "Monster Energy", price: "£3.50", emoji: "🥤"},
-        {name: "Lucozade Sport", price: "£3.00", emoji: "🥤"},
-        {name: "Rockstar Energy", price: "£3.50", emoji: "🥤"},
-        {name: "Relentless Energy", price: "£3.50", emoji: "🥤"},
-        {name: "Boost Energy", price: "£3.00", emoji: "🥤"},
-        {name: "Lucozade Original", price: "£3.00", emoji: "🥤"},
-        {name: "Powerade", price: "£3.00", emoji: "🥤"},
-        {name: "Gatorade", price: "£3.00", emoji: "🥤"},
-        {name: "Prime Hydration", price: "£4.00", emoji: "🥤"},
-        
-        // Flavored Drinks
-        {name: "Tropical Punch", price: "£2.75", emoji: "🥤"},
-        {name: "Berry Blast", price: "£2.75", emoji: "🥤"},
-        {name: "Citrus Burst", price: "£2.75", emoji: "🥤"},
-        {name: "Grape Crush", price: "£2.75", emoji: "🥤"},
-        {name: "Strawberry Fizz", price: "£2.75", emoji: "🥤"},
-        {name: "Mango Twist", price: "£2.75", emoji: "🥤"},
-        {name: "Pineapple Express", price: "£2.75", emoji: "🥤"},
-        {name: "Watermelon Wave", price: "£2.75", emoji: "🥤"},
-        {name: "Peach Paradise", price: "£2.75", emoji: "🥤"},
-        {name: "Cherry Bomb", price: "£2.75", emoji: "🥤"},
-        
-        // International Sodas
-        {name: "Jarritos Lime", price: "£3.00", emoji: "🥤"},
-        {name: "Jarritos Pineapple", price: "£3.00", emoji: "🥤"},
-        {name: "Bundaberg Ginger Beer", price: "£3.50", emoji: "🥤"},
-        {name: "San Pellegrino Aranciata", price: "£3.00", emoji: "🥤"},
-        {name: "San Pellegrino Limonata", price: "£3.00", emoji: "🥤"},
-        {name: "Chinotto", price: "£3.00", emoji: "🥤"},
-        {name: "Ramune Original", price: "£3.50", emoji: "🥤"},
-        {name: "Ramune Melon", price: "£3.50", emoji: "🥤"},
-        {name: "Ramune Strawberry", price: "£3.50", emoji: "🥤"},
-        {name: "Ramune Lychee", price: "£3.50", emoji: "🥤"}
-    ],
-    
-    waters: [
-        // Still Waters
-        {name: "Evian Natural Spring", price: "£2.00", emoji: "💧"},
-        {name: "Fiji Natural Artesian", price: "£3.00", emoji: "💧"},
-        {name: "Volvic Natural", price: "£2.00", emoji: "💧"},
-        {name: "Highland Spring", price: "£1.80", emoji: "💧"},
-        {name: "Buxton Natural", price: "£1.80", emoji: "💧"},
-        {name: "Harrogate Spring", price: "£1.80", emoji: "💧"},
-        {name: "Malvern Natural", price: "£1.80", emoji: "💧"},
-        {name: "Pennine Natural", price: "£1.80", emoji: "💧"},
-        {name: "Cotswold Natural", price: "£1.80", emoji: "💧"},
-        {name: "Brecon Natural", price: "£1.80", emoji: "💧"},
-        {name: "Welsh Mountain", price: "£1.80", emoji: "💧"},
-        {name: "Scottish Highland", price: "£1.80", emoji: "💧"},
-        {name: "Lake District", price: "£1.80", emoji: "💧"},
-        {name: "Yorkshire Dales", price: "£1.80", emoji: "💧"},
-        {name: "Peak District", price: "£1.80", emoji: "💧"},
-        
-        // Sparkling Waters
-        {name: "Perrier Sparkling", price: "£2.50", emoji: "💧"},
-        {name: "San Pellegrino", price: "£2.50", emoji: "💧"},
-        {name: "Badoit Sparkling", price: "£2.50", emoji: "💧"},
-        {name: "Gerolsteiner Sparkling", price: "£2.50", emoji: "💧"},
-        {name: "Pellegrino Sparkling", price: "£2.50", emoji: "💧"},
-        {name: "Acqua Panna", price: "£2.50", emoji: "💧"},
-        {name: "Vittel Sparkling", price: "£2.50", emoji: "💧"},
-        {name: "Hildon Sparkling", price: "£2.50", emoji: "💧"},
-        {name: "Ty Nant Sparkling", price: "£2.50", emoji: "💧"},
-        {name: "Strathmore Sparkling", price: "£2.50", emoji: "💧"},
-        
-        // Flavored Waters
-        {name: "Volvic Lemon", price: "£2.25", emoji: "💧"},
-        {name: "Volvic Strawberry", price: "£2.25", emoji: "💧"},
-        {name: "Evian Lemon", price: "£2.25", emoji: "💧"},
-        {name: "Perrier Lime", price: "£2.75", emoji: "💧"},
-        {name: "Perrier Watermelon", price: "£2.75", emoji: "💧"},
-        {name: "San Pellegrino Lemon", price: "£2.75", emoji: "💧"},
-        {name: "San Pellegrino Orange", price: "£2.75", emoji: "💧"},
-        {name: "Hint Water Watermelon", price: "£3.00", emoji: "💧"},
-        {name: "Hint Water Cucumber", price: "£3.00", emoji: "💧"},
-        {name: "Hint Water Blackberry", price: "£3.00", emoji: "💧"},
-        
-        // Premium Waters
-        {name: "Veen Finnish", price: "£4.00", emoji: "💧"},
-        {name: "Svalbardi Arctic", price: "£8.00", emoji: "💧"},
-        {name: "Berg Iceberg", price: "£12.00", emoji: "💧"},
-        {name: "Kona Nigari", price: "£15.00", emoji: "💧"},
-        {name: "420 Volcanic", price: "£6.00", emoji: "💧"},
-        {name: "Svalbarði Polar", price: "£10.00", emoji: "💧"},
-        {name: "ROI Slovenian", price: "£5.00", emoji: "💧"},
-        {name: "Antipodes New Zealand", price: "£4.50", emoji: "💧"},
-        {name: "Iskilde Danish", price: "£3.50", emoji: "💧"},
-        {name: "Fillico Japanese", price: "£20.00", emoji: "💧"}
-    ],
-    
-    beers: [
-        // British Beers
-        {name: "Guinness Draught", price: "£4.50", emoji: "🍺"},
-        {name: "Stella Artois", price: "£4.25", emoji: "🍺"},
-        {name: "Carlsberg", price: "£4.00", emoji: "🍺"},
-        {name: "Heineken", price: "£4.25", emoji: "🍺"},
-        {name: "Foster's", price: "£4.00", emoji: "🍺"},
-        {name: "Carling", price: "£3.75", emoji: "🍺"},
-        {name: "Tennent's", price: "£3.75", emoji: "🍺"},
-        {name: "John Smith's", price: "£3.75", emoji: "🍺"},
-        {name: "Bitter & Twisted", price: "£4.00", emoji: "🍺"},
-        {name: "London Pride", price: "£4.25", emoji: "🍺"},
-        {name: "Doom Bar", price: "£4.25", emoji: "🍺"},
-        {name: "Spitfire", price: "£4.00", emoji: "🍺"},
-        {name: "Abbott Ale", price: "£4.00", emoji: "🍺"},
-        {name: "Bishops Finger", price: "£4.50", emoji: "🍺"},
-        {name: "Old Speckled Hen", price: "£4.25", emoji: "🍺"},
-        {name: "Newcastle Brown", price: "£4.00", emoji: "🍺"},
-        {name: "Boddingtons", price: "£4.00", emoji: "🍺"},
-        {name: "Tetley's", price: "£3.75", emoji: "🍺"},
-        {name: "Worthington", price: "£3.75", emoji: "🍺"},
-        {name: "Banks's", price: "£3.75", emoji: "🍺"},
-        
-        // International Beers
-        {name: "Corona Extra", price: "£4.50", emoji: "🍺"},
-        {name: "Budweiser", price: "£4.25", emoji: "🍺"},
-        {name: "Becks", price: "£4.25", emoji: "🍺"},
-        {name: "Peroni", price: "£4.50", emoji: "🍺"},
-        {name: "Moretti", price: "£4.50", emoji: "🍺"},
-        {name: "San Miguel", price: "£4.25", emoji: "🍺"},
-        {name: "Modelo", price: "£4.50", emoji: "🍺"},
-        {name: "Pacifico", price: "£4.50", emoji: "🍺"},
-        {name: "Desperados", price: "£4.75", emoji: "🍺"},
-        {name: "Tiger Beer", price: "£4.25", emoji: "🍺"},
-        {name: "Singha", price: "£4.25", emoji: "🍺"},
-        {name: "Asahi", price: "£4.50", emoji: "🍺"},
-        {name: "Kirin Ichiban", price: "£4.50", emoji: "🍺"},
-        {name: "Sapporo", price: "£4.50", emoji: "🍺"},
-        {name: "Tsingtao", price: "£4.25", emoji: "🍺"},
-        
-        // Craft Beers
-        {name: "BrewDog Punk IPA", price: "£5.00", emoji: "🍺"},
-        {name: "Camden Hells", price: "£5.00", emoji: "🍺"},
-        {name: "Beavertown Gamma Ray", price: "£5.25", emoji: "🍺"},
-        {name: "Thornbridge Jaipur", price: "£5.25", emoji: "🍺"},
-        {name: "Magic Rock High Wire", price: "£5.50", emoji: "🍺"},
-        {name: "Siren Craft Broken Dream", price: "£5.50", emoji: "🍺"},
-        {name: "Northern Monk Faith", price: "£5.25", emoji: "🍺"},
-        {name: "Cloudwater DIPA", price: "£6.00", emoji: "🍺"},
-        {name: "Verdant IPA", price: "£5.75", emoji: "🍺"},
-        {name: "Deya Steady Rolling", price: "£5.50", emoji: "🍺"},
-        
-        // Premium Beers
-        {name: "Chimay Blue", price: "£8.50", emoji: "🍺"},
-        {name: "Duvel", price: "£7.50", emoji: "🍺"},
-        {name: "Rochefort 10", price: "£9.00", emoji: "🍺"},
-        {name: "Westvleteren 12", price: "£12.00", emoji: "🍺"},
-        {name: "Orval", price: "£7.00", emoji: "🍺"},
-        {name: "Saison Dupont", price: "£6.50", emoji: "🍺"},
-        {name: "Kwak", price: "£6.00", emoji: "🍺"},
-        {name: "Leffe Blonde", price: "£5.50", emoji: "🍺"},
-        {name: "Hoegaarden", price: "£5.00", emoji: "🍺"},
-        {name: "Erdinger Weissbier", price: "£5.25", emoji: "🍺"}
-    ],
-    
-    spirits: [
-        // Whisky
-        {name: "Macallan 18", price: "£45.00", emoji: "🥃"},
-        {name: "Glenfiddich 12", price: "£8.50", emoji: "🥃"},
-        {name: "Johnnie Walker Blue", price: "£25.00", emoji: "🥃"},
-        {name: "Jameson Irish", price: "£6.50", emoji: "🥃"},
-        {name: "Jack Daniel's", price: "£7.00", emoji: "🥃"},
-        {name: "Chivas Regal 18", price: "£15.00", emoji: "🥃"},
-        {name: "Glenlivet 15", price: "£12.00", emoji: "🥃"},
-        {name: "Lagavulin 16", price: "£18.00", emoji: "🥃"},
-        {name: "Talisker 10", price: "£10.00", emoji: "🥃"},
-        {name: "Ardbeg 10", price: "£12.00", emoji: "🥃"},
-        {name: "Balvenie 12 DoubleWood", price: "£11.00", emoji: "🥃"},
-        {name: "Highland Park 12", price: "£9.50", emoji: "🥃"},
-        {name: "Oban 14", price: "£13.00", emoji: "🥃"},
-        {name: "Springbank 10", price: "£11.50", emoji: "🥃"},
-        {name: "Redbreast 12", price: "£14.00", emoji: "🥃"},
-        {name: "Tullamore Dew", price: "£6.00", emoji: "🥃"},
-        {name: "Bushmills 10", price: "£8.00", emoji: "🥃"},
-        {name: "Maker's Mark", price: "£8.50", emoji: "🥃"},
-        {name: "Woodford Reserve", price: "£10.00", emoji: "🥃"},
-        {name: "Bulleit Bourbon", price: "£8.00", emoji: "🥃"},
-        
-        // Vodka
-        {name: "Grey Goose", price: "£12.00", emoji: "🍸"},
-        {name: "Beluga Noble", price: "£15.00", emoji: "🍸"},
-        {name: "Absolut Vodka", price: "£7.00", emoji: "🍸"},
-        {name: "Smirnoff", price: "£5.50", emoji: "🍸"},
-        {name: "Stolichnaya", price: "£6.50", emoji: "🍸"},
-        {name: "Ketel One", price: "£8.50", emoji: "🍸"},
-        {name: "Tito's Handmade", price: "£8.00", emoji: "🍸"},
-        {name: "Ciroc", price: "£10.00", emoji: "🍸"},
-        {name: "Belvedere", price: "£11.00", emoji: "🍸"},
-        {name: "Crystal Head", price: "£13.00", emoji: "🍸"},
-        
-        // Gin
-        {name: "Hendrick's", price: "£9.50", emoji: "🍸"},
-        {name: "Tanqueray", price: "£7.50", emoji: "🍸"},
-        {name: "Bombay Sapphire", price: "£8.00", emoji: "🍸"},
-        {name: "Gordon's", price: "£5.50", emoji: "🍸"},
-        {name: "Beefeater", price: "£6.00", emoji: "🍸"},
-        {name: "Monkey 47", price: "£12.00", emoji: "🍸"},
-        {name: "Sipsmith", price: "£8.50", emoji: "🍸"},
-        {name: "The Botanist", price: "£10.00", emoji: "🍸"},
-        {name: "Roku Japanese", price: "£9.00", emoji: "🍸"},
-        {name: "Plymouth Gin", price: "£8.00", emoji: "🍸"},
-        
-        // Rum
-        {name: "Bacardi Superior", price: "£6.50", emoji: "🥃"},
-        {name: "Captain Morgan", price: "£6.00", emoji: "🥃"},
-        {name: "Havana Club 7", price: "£9.00", emoji: "🥃"},
-        {name: "Mount Gay Eclipse", price: "£8.50", emoji: "🥃"},
-        {name: "Diplomatico Reserva", price: "£11.00", emoji: "🥃"},
-        {name: "Kraken Black Spiced", price: "£7.50", emoji: "🥃"},
-        {name: "Plantation 3 Stars", price: "£8.00", emoji: "🥃"},
-        {name: "Appleton Estate 12", price: "£10.50", emoji: "🥃"},
-        {name: "Zacapa 23", price: "£15.00", emoji: "🥃"},
-        {name: "Sailor Jerry", price: "£7.00", emoji: "🥃"},
-        
-        // Tequila
-        {name: "Patrón Silver", price: "£11.00", emoji: "🍸"},
-        {name: "Don Julio 1942", price: "£25.00", emoji: "🍸"},
-        {name: "Jose Cuervo Gold", price: "£7.00", emoji: "🍸"},
-        {name: "Herradura Silver", price: "£9.50", emoji: "🍸"},
-        {name: "Casamigos Blanco", price: "£10.00", emoji: "🍸"},
-        {name: "Clase Azul Reposado", price: "£20.00", emoji: "🍸"},
-        {name: "Olmeca Altos", price: "£8.50", emoji: "🍸"},
-        {name: "1800 Silver", price: "£8.00", emoji: "🍸"},
-        {name: "El Jimador", price: "£7.50", emoji: "🍸"},
-        
-        // Cognac & Brandy
-        {name: "Hennessy VS", price: "£12.00", emoji: "🥃"},
-        {name: "Rémy Martin VSOP", price: "£15.00", emoji: "🥃"},
-        {name: "Martell Cordon Bleu", price: "£13.00", emoji: "🥃"},
-        {name: "Courvoisier VS", price: "£11.00", emoji: "🥃"},
-        {name: "Hennessy XO", price: "£45.00", emoji: "🥃"},
-        {name: "Armagnac Delord", price: "£18.00", emoji: "🥃"},
-        {name: "Calvados Boulard", price: "£16.00", emoji: "🥃"},
-        {name: "Metaxa 7 Stars", price: "£14.00", emoji: "🥃"},
-        {name: "Torres 10", price: "£12.00", emoji: "🥃"},
-        {name: "Janneau VSOP", price: "£17.00", emoji: "🥃"}
-    ],
-    
-    hot: [
-        // Coffee
-        {name: "Espresso", price: "£2.50", emoji: "☕"},
-        {name: "Americano", price: "£3.00", emoji: "☕"},
-        {name: "Cappuccino", price: "£3.50", emoji: "☕"},
-        {name: "Latte", price: "£4.00", emoji: "☕"},
-        {name: "Macchiato", price: "£3.75", emoji: "☕"},
-        {name: "Mocha", price: "£4.25", emoji: "☕"},
-        {name: "Flat White", price: "£3.75", emoji: "☕"},
-        {name: "Cortado", price: "£3.50", emoji: "☕"},
-        {name: "Gibraltar", price: "£3.50", emoji: "☕"},
-        {name: "Affogato", price: "£4.50", emoji: "☕"},
-        {name: "Irish Coffee", price: "£6.50", emoji: "☕"},
-        {name: "Vienna Coffee", price: "£4.00", emoji: "☕"},
-        {name: "Turkish Coffee", price: "£3.25", emoji: "☕"},
-        {name: "French Press", price: "£4.50", emoji: "☕"},
-        {name: "Cold Brew", price: "£4.00", emoji: "☕"},
-        {name: "Nitro Coffee", price: "£4.50", emoji: "☕"},
-        {name: "Bulletproof Coffee", price: "£5.00", emoji: "☕"},
-        {name: "Dalgona Coffee", price: "£4.25", emoji: "☕"},
-        {name: "Decaf Americano", price: "£3.00", emoji: "☕"},
-        {name: "Decaf Latte", price: "£4.00", emoji: "☕"},
-        
-        // Tea
-        {name: "English Breakfast", price: "£2.50", emoji: "🍵"},
-        {name: "Earl Grey", price: "£2.50", emoji: "🍵"},
-        {name: "Green Tea", price: "£2.75", emoji: "🍵"},
-        {name: "Jasmine Tea", price: "£3.00", emoji: "🍵"},
-        {name: "Chamomile Tea", price: "£2.75", emoji: "🍵"},
-        {name: "Peppermint Tea", price: "£2.75", emoji: "🍵"},
-        {name: "Oolong Tea", price: "£3.25", emoji: "🍵"},
-        {name: "White Tea", price: "£3.50", emoji: "🍵"},
-        {name: "Rooibos Tea", price: "£2.75", emoji: "🍵"},
-        {name: "Darjeeling Tea", price: "£3.00", emoji: "🍵"},
-        {name: "Assam Tea", price: "£2.75", emoji: "🍵"},
-        {name: "Ceylon Tea", price: "£2.75", emoji: "🍵"},
-        {name: "Lemon Ginger Tea", price: "£3.00", emoji: "🍵"},
-        {name: "Hibiscus Tea", price: "£2.75", emoji: "🍵"},
-        {name: "Matcha Latte", price: "£4.50", emoji: "🍵"},
-        {name: "Chai Latte", price: "£4.00", emoji: "🍵"},
-        {name: "Masala Chai", price: "£3.50", emoji: "🍵"},
-        {name: "London Fog", price: "£4.25", emoji: "🍵"},
-        {name: "Turmeric Latte", price: "£4.00", emoji: "🍵"},
-        {name: "Lavender Tea", price: "£3.25", emoji: "🍵"},
-        
-        // Hot Chocolate & Others
-        {name: "Hot Chocolate", price: "£3.50", emoji: "🍫"},
-        {name: "White Hot Chocolate", price: "£3.75", emoji: "🍫"},
-        {name: "Salted Caramel Hot Chocolate", price: "£4.25", emoji: "🍫"},
-        {name: "Mint Hot Chocolate", price: "£4.00", emoji: "🍫"},
-        {name: "Spiced Hot Chocolate", price: "£4.25", emoji: "🍫"},
-        {name: "Mulled Wine", price: "£5.50", emoji: "🍷"},
-        {name: "Hot Toddy", price: "£6.00", emoji: "🥃"},
-        {name: "Glögg", price: "£5.75", emoji: "🍷"},
-        {name: "Hot Buttered Rum", price: "£6.50", emoji: "🥃"},
-        {name: "Wassail", price: "£5.25", emoji: "🍎"}
-    ],
-    
-    juices: [
-        // Fresh Juices
-        {name: "Orange Juice", price: "£3.50", emoji: "🍊"},
-        {name: "Apple Juice", price: "£3.25", emoji: "🍎"},
-        {name: "Grape Juice", price: "£3.50", emoji: "🍇"},
-        {name: "Pineapple Juice", price: "£3.75", emoji: "🍍"},
-        {name: "Cranberry Juice", price: "£3.50", emoji: "🧃"},
-        {name: "Grapefruit Juice", price: "£3.50", emoji: "🧃"},
-        {name: "Tomato Juice", price: "£3.25", emoji: "🍅"},
-        {name: "Carrot Juice", price: "£3.75", emoji: "🥕"},
-        {name: "Beetroot Juice", price: "£4.00", emoji: "🧃"},
-        {name: "Celery Juice", price: "£4.25", emoji: "🧃"},
-        {name: "Cucumber Juice", price: "£3.75", emoji: "🥒"},
-        {name: "Spinach Juice", price: "£4.00", emoji: "🧃"},
-        {name: "Kale Juice", price: "£4.25", emoji: "🧃"},
-        {name: "Wheatgrass Shot", price: "£3.00", emoji: "🌱"},
-        {name: "Ginger Shot", price: "£2.50", emoji: "🧃"},
-        {name: "Turmeric Shot", price: "£2.75", emoji: "🧃"},
-        {name: "Lemon Juice", price: "£2.50", emoji: "🍋"},
-        {name: "Lime Juice", price: "£2.50", emoji: "🧃"},
-        {name: "Watermelon Juice", price: "£3.75", emoji: "🍉"},
-        {name: "Mango Juice", price: "£4.00", emoji: "🥭"},
-        
-        // Smoothies
-        {name: "Berry Blast Smoothie", price: "£5.50", emoji: "🧃"},
-        {name: "Tropical Paradise", price: "£5.75", emoji: "🧃"},
-        {name: "Green Goddess", price: "£5.25", emoji: "🧃"},
-        {name: "Protein Power", price: "£6.00", emoji: "🧃"},
-        {name: "Acai Bowl Smoothie", price: "£6.50", emoji: "🧃"},
-        {name: "Banana Peanut Butter", price: "£5.50", emoji: "🧃"},
-        {name: "Chocolate Banana", price: "£5.75", emoji: "🧃"},
-        {name: "Strawberry Banana", price: "£5.25", emoji: "🧃"},
-        {name: "Mango Passion", price: "£5.75", emoji: "🧃"},
-        {name: "Blueberry Antioxidant", price: "£6.00", emoji: "🧃"},
-        {name: "Detox Green", price: "£5.50", emoji: "🧃"},
-        {name: "Immunity Boost", price: "£6.25", emoji: "🧃"},
-        {name: "Post-Workout", price: "£6.50", emoji: "🧃"},
-        {name: "Breakfast Smoothie", price: "£5.75", emoji: "🧃"},
-        {name: "Avocado Dream", price: "£6.00", emoji: "🧃"},
-        {name: "Coconut Cream", price: "£5.50", emoji: "🧃"},
-        {name: "Peach Bellini", price: "£5.75", emoji: "🧃"},
-        {name: "Cherry Vanilla", price: "£5.50", emoji: "🧃"},
-        {name: "Pomegranate Power", price: "£6.00", emoji: "🧃"},
-        {name: "Goji Berry Super", price: "£6.25", emoji: "🧃"},
-        
-        // Premium Juices
-        {name: "Cold-Pressed Orange", price: "£4.50", emoji: "🍊"},
-        {name: "Cold-Pressed Apple", price: "£4.25", emoji: "🍎"},
-        {name: "Cold-Pressed Celery", price: "£5.00", emoji: "🧃"},
-        {name: "Cold-Pressed Kale", price: "£5.25", emoji: "🧃"},
-        {name: "Master Cleanse", price: "£5.50", emoji: "🧃"},
-        {name: "Green Machine", price: "£5.75", emoji: "🧃"},
-        {name: "Beet It Up", price: "£5.25", emoji: "🧃"},
-        {name: "Carrot Ginger", price: "£4.75", emoji: "🧃"},
-        {name: "Pineapple Mint", price: "£4.50", emoji: "🧃"},
-        {name: "Watermelon Lime", price: "£4.25", emoji: "🧃"}
-    ],
-    
-    cocktails: [
-        // Classic Cocktails
-        {name: "Martini", price: "£8.50", emoji: "🍸"},
-        {name: "Manhattan", price: "£9.00", emoji: "🍸"},
-        {name: "Old Fashioned", price: "£8.50", emoji: "🥃"},
-        {name: "Negroni", price: "£8.00", emoji: "🍸"},
-        {name: "Whiskey Sour", price: "£7.50", emoji: "🍸"},
-        {name: "Daiquiri", price: "£7.50", emoji: "🍸"},
-        {name: "Margarita", price: "£8.00", emoji: "🍸"},
-        {name: "Mojito", price: "£8.50", emoji: "🍸"},
-        {name: "Cosmopolitan", price: "£8.50", emoji: "🍸"},
-        {name: "Piña Colada", price: "£9.00", emoji: "🍸"},
-        {name: "Mai Tai", price: "£9.50", emoji: "🍸"},
-        {name: "Bloody Mary", price: "£8.00", emoji: "🍸"},
-        {name: "Gimlet", price: "£7.50", emoji: "🍸"},
-        {name: "Sidecar", price: "£8.50", emoji: "🍸"},
-        {name: "Aviation", price: "£8.00", emoji: "🍸"},
-        {name: "Sazerac", price: "£9.00", emoji: "🍸"},
-        {name: "Ramos Gin Fizz", price: "£8.50", emoji: "🍸"},
-        {name: "Mint Julep", price: "£8.00", emoji: "🍸"},
-        {name: "Tom Collins", price: "£7.50", emoji: "🍸"},
-        {name: "French 75", price: "£9.00", emoji: "🍸"},
-        
-        // Modern Cocktails
-        {name: "Espresso Martini", price: "£9.50", emoji: "🍸"},
-        {name: "Pornstar Martini", price: "£10.00", emoji: "🍸"},
-        {name: "Bramble", price: "£8.50", emoji: "🍸"},
-        {name: "Aperol Spritz", price: "£8.00", emoji: "🍸"},
-        {name: "Hugo Spritz", price: "£8.50", emoji: "🍸"},
-        {name: "Elderflower Collins", price: "£8.00", emoji: "🍸"},
-        {name: "Cucumber Basil Smash", price: "£8.50", emoji: "🍸"},
-        {name: "Lavender Bee's Knees", price: "£9.00", emoji: "🍸"},
-        {name: "Smoke & Mirrors", price: "£10.50", emoji: "🍸"},
-        {name: "Golden Hour", price: "£9.50", emoji: "🍸"},
-        
-        // Mocktails
-        {name: "Virgin Mojito", price: "£5.50", emoji: "🍸"},
-        {name: "Shirley Temple", price: "£4.50", emoji: "🍸"},
-        {name: "Virgin Mary", price: "£5.00", emoji: "🍸"},
-        {name: "Fruit Punch", price: "£5.00", emoji: "🍸"},
-        {name: "Lemonade Fizz", price: "£4.50", emoji: "🍸"},
-        {name: "Cucumber Mint Cooler", price: "£5.25", emoji: "🍸"},
-        {name: "Berry Blast", price: "£5.75", emoji: "🍸"},
-        {name: "Tropical Sunrise", price: "£5.50", emoji: "🍸"},
-        {name: "Ginger Lime Sparkler", price: "£5.25", emoji: "🍸"},
-        {name: "Elderflower Lemonade", price: "£5.00", emoji: "🍸"}
-    ]
-};
 
-// Client billing system
-let clientBills = [];
-let currentOrderItem = null;
 
-// Initialize the menu
-function initializeMenu() {
-    populateNavigation();
-    renderAllCategories();
-    setupEventListeners();
-}
 
-// Populate navigation with items
-function populateNavigation() {
-    const navSections = {
-        'navWines': menuData.wines,
-        'navDrinks': menuData.drinks,
-        'navWaters': menuData.waters,
-        'navBeers': menuData.beers,
-        'navSpirits': menuData.spirits,
-        'navHot': menuData.hot,
-        'navJuices': menuData.juices,
-        'navCocktails': menuData.cocktails
-    };
 
-    for (const [navId, items] of Object.entries(navSections)) {
-        const container = document.getElementById(navId);
-        if (container) {
-            container.innerHTML = items.map(item => 
-                `<div class="nav-item">${item.emoji} ${item.name}</div>`
-            ).join('');
+
+
+
+
+
+
+
+
+
+    function loadHTML(id, url) {
+            fetch(url)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                    
+                    // If header is loaded, initialize mobile menu
+                    if (id === 'header') {
+                        initializeMobileMenu();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading HTML:', error);
+                    // Fallback: Load default content if external file fails
+                    if (id === 'header') {
+                        loadDefaultHeader();
+                    }
+                    if (id === 'footer') {
+                        loadDefaultFooter();
+                    }
+                });
         }
-    }
-}
 
-// Render all categories
-function renderAllCategories() {
-    renderCategory('winesGrid', menuData.wines);
-    renderCategory('drinksGrid', menuData.drinks);
-    renderCategory('watersGrid', menuData.waters);
-    renderCategory('beersGrid', menuData.beers);
-    renderCategory('spiritsGrid', menuData.spirits);
-    renderCategory('hotGrid', menuData.hot);
-    renderCategory('juicesGrid', menuData.juices);
-    renderCategory('cocktailsGrid', menuData.cocktails);
-}
+        function loadDefaultHeader() {
+            const headerHTML = `
+                <nav class="navbar" id="navbar">
+                    <div class="nav-container">
+                        <a href="#" class="logo">
+                            <div class="logo-icon">💳</div>
+                            <span class="logo-text">FlexiPay</span>
+                        </a>
 
-// Render a specific category
-function renderCategory(gridId, items) {
-    const grid = document.getElementById(gridId);
-    if (!grid) return;
+                        <ul class="nav-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="featuer.html">Features</a></li>
+                            <li><a href="shop3.html">Flexible Installment and Billing Shop</a></li>
+                           <li><a href="manu.html">Menu</a></li>
+                            <li><a href="pricing.html">Pricing</a></li>
+                            <li><a href="support.html">Support</a></li>
+                            <li><a href="#docs.html">Docs</a></li>
+                            <li><a href="#contact.html">Contact</a></li>
+                        </ul>
 
-    grid.innerHTML = items.map(item => `
-        <div class="menu-item">
-            <div class="item-image">${item.emoji}</div>
-            <div class="item-name">${item.name}</div>
-            <div class="item-price">${item.price}</div>
-            <button class="buy-button" onclick="openOrderModal('${item.name}', '${item.price}', '${item.emoji}')">
-                Buy Now
-            </button>
-        </div>
-    `).join('');
-}
+                        <a href="#demo" class="cta-button">
+                            <span>🚀</span>
+                            Get Started
+                        </a>
 
-// Open order modal
-function openOrderModal(name, price, emoji) {
-    currentOrderItem = { name, price, emoji };
-    
-    const modal = document.getElementById('orderModal');
-    const itemDetails = document.getElementById('orderItemDetails');
-    
-    itemDetails.innerHTML = `
-        <h3>${emoji} ${name}</h3>
-        <p><strong>Price:</strong> ${price}</p>
-        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
-        <p><strong>Time:</strong> ${new Date().toLocaleTimeString()}</p>
-    `;
-    
-    modal.style.display = 'block';
-}
+                        <div class="mobile-menu-btn" id="mobileMenuBtn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </nav>
 
-// Close modal
-function closeModal() {
-    document.getElementById('orderModal').style.display = 'none';
-    currentOrderItem = null;
-    document.getElementById('orderForm').reset();
-}
-
-// Setup event listeners
-function setupEventListeners() {
-    // Close modal when clicking X
-    document.querySelector('.close').onclick = closeModal;
-    
-    // Close modal when clicking outside
-    window.onclick = function(event) {
-        const modal = document.getElementById('orderModal');
-        if (event.target === modal) {
-            closeModal();
-        }
-    };
-    
-    // Handle form submission
-    document.getElementById('orderForm').addEventListener('submit', handleOrderSubmit);
-    
-    // Search functionality
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', performSearch);
-}
-
-// Handle order submission
-function handleOrderSubmit(e) {
-    e.preventDefault();
-    
-    if (!currentOrderItem) return;
-    
-    const formData = new FormData(e.target);
-    const clientName = formData.get('clientName');
-    const clientPhone = formData.get('clientPhone');
-    const paymentAmount = parseFloat(formData.get('paymentAmount')) || 0;
-    
-    const itemPrice = parseFloat(currentOrderItem.price.replace('£', ''));
-    const orderDate = new Date().toLocaleDateString();
-    const orderTime = new Date().toLocaleTimeString();
-    
-    // Find existing client or create new one
-    let existingClient = clientBills.find(client => 
-        client.name === clientName && client.phone === clientPhone
-    );
-    
-    if (existingClient) {
-        // Update existing client
-        existingClient.orders.push({
-            item: currentOrderItem.name,
-            emoji: currentOrderItem.emoji,
-            price: itemPrice,
-            date: orderDate,
-            time: orderTime
-        });
-        existingClient.totalAmount += itemPrice;
-        existingClient.paidAmount += paymentAmount;
-        existingClient.balance = existingClient.paidAmount - existingClient.totalAmount;
-        existingClient.lastOrderDate = orderDate;
-        existingClient.lastOrderTime = orderTime;
-    } else {
-        // Create new client
-        const newClient = {
-            name: clientName,
-            phone: clientPhone,
-            orders: [{
-                item: currentOrderItem.name,
-                emoji: currentOrderItem.emoji,
-                price: itemPrice,
-                date: orderDate,
-                time: orderTime
-            }],
-            totalAmount: itemPrice,
-            paidAmount: paymentAmount,
-            balance: paymentAmount - itemPrice,
-            lastOrderDate: orderDate,
-            lastOrderTime: orderTime
-        };
-        clientBills.push(newClient);
-    }
-    
-    // Update client bills display
-    updateClientBillsDisplay();
-    
-    // Close modal
-    closeModal();
-    
-    // Show success message
-    alert('Order placed successfully!');
-}
-
-// Update client bills display
-function updateClientBillsDisplay() {
-    const billsContainer = document.getElementById('billsContainer');
-    
-    if (clientBills.length === 0) {
-        billsContainer.innerHTML = '<p style="color: #fff; text-align: center;">No client bills yet.</p>';
-        return;
-    }
-    
-    billsContainer.innerHTML = clientBills.map(client => {
-        const balanceClass = client.balance > 0 ? 'balance-positive' : 
-                           client.balance < 0 ? 'balance-negative' : 'balance-zero';
-        
-        const balanceText = client.balance > 0 ? `Credit: £${client.balance.toFixed(2)}` :
-                           client.balance < 0 ? `Due: £${Math.abs(client.balance).toFixed(2)}` :
-                           'Balance: £0.00';
-        
-        return `
-            <div class="client-card">
-                <div class="client-header">
-                    <div class="client-name">${client.name}</div>
-                    <div class="client-phone">📱 ${client.phone}</div>
+                <div class="mobile-menu" id="mobileMenu">
+                    <ul>
+                        <li><a href="index.html">🏠 Home</a></li>
+                        <li><a href="featuer.html">✨ Features</a></li>
+                        <li><a href="shop3.html">Flexible Installment and Billing Shop</a></li>
+                        <li><a href="manu.html">Menu</a></li>    
+                        <li><a href="support..html">🛠️ Support</a></li>
+                        <li><a href="docs.html">📚 Docs</a></li>
+                        <li><a href="contact.html">📞 Contact</a></li>
+                        <li><a href="#demo" style="background: linear-gradient(135deg, #ff6b6b, #ffd93d); color: white;">🚀 Get Started</a></li>
+                    </ul>
                 </div>
-                
-                <div class="bill-details">
-                    <div class="bill-item">
-                        <h4>📋 Recent Orders</h4>
-                        ${client.orders.slice(-3).map(order => `
-                            <p>${order.emoji} ${order.item} - ${order.date} at ${order.time}</p>
-                        `).join('')}
-                        ${client.orders.length > 3 ? `<p><em>...and ${client.orders.length - 3} more orders</em></p>` : ''}
+            `;
+            
+            document.getElementById('header').innerHTML = headerHTML;
+            initializeMobileMenu();
+        }
+
+        function loadDefaultFooter() {
+            const footerHTML = `
+                <footer class="footer">
+                    <div class="footer-content">
+                        <div class="footer-section">
+                            <h3>FlexiPay</h3>
+                            <p>Your trusted payment solution for modern businesses. Simplifying transactions, one payment at a time.</p>
+                            <div class="social-links">
+                                <a href="#">📘</a>
+                                <a href="#">🐦</a>
+                                <a href="#">💼</a>
+                                <a href="#">📷</a>
+                            </div>
+                        </div>
+                        
+                        <div class="footer-section">
+                            <h3>Products</h3>
+                            <ul>
+                                <li><a href="#payment-gateway">Payment Gateway</a></li>
+                                <li><a href="#installment">Installment Plans</a></li>
+                                <li><a href="#analytics">Analytics Dashboard</a></li>
+                                <li><a href="#api">Developer API</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-section">
+                            <h3>Support</h3>
+                            <ul>
+                                <li><a href="#help">Help Center</a></li>
+                                <li><a href="#docs">Documentation</a></li>
+                                <li><a href="#contact">Contact Us</a></li>
+                                <li><a href="#status">System Status</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-section">
+                            <h3>Company</h3>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                                <li><a href="#careers">Careers</a></li>
+                                <li><a href="#press">Press</a></li>
+                                <li><a href="#blog">Blog</a></li>
+                            </ul>
+                        </div>
                     </div>
                     
-                    <div class="bill-item">
-                        <h4>📊 Order Summary</h4>
-                        <p><strong>Total Orders:</strong> ${client.orders.length}</p>
-                        <p><strong>Last Order:</strong> ${client.lastOrderDate}</p>
-                        <p><strong>Last Time:</strong> ${client.lastOrderTime}</p>
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 FlexiPay. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
                     </div>
-                </div>
-                
-                <div class="amount-section">
-                    <div class="amount-box">
-                        <h5>💰 Total Amount</h5>
-                        <p>£${client.totalAmount.toFixed(2)}</p>
-                    </div>
-                    <div class="amount-box">
-                        <h5>💵 Paid Amount</h5>
-                        <p>£${client.paidAmount.toFixed(2)}</p>
-                    </div>
-                    <div class="amount-box">
-                        <h5>⚖️ Balance</h5>
-                        <p>£${client.balance.toFixed(2)}</p>
-                    </div>
-                </div>
-                
-                <div class="balance-status ${balanceClass}">
-                    ${balanceText}
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-// Search functionality
-function performSearch() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const menuContainer = document.getElementById('menuContainer');
-    const notFound = document.getElementById('notFound');
-    
-    if (searchTerm === '') {
-        menuContainer.style.display = 'block';
-        notFound.style.display = 'none';
-        renderAllCategories();
-        return;
-    }
-    
-    let hasResults = false;
-    
-    // Search through all categories
-    const categories = [
-        { id: 'winesGrid', data: menuData.wines, title: '🍷 Premium Wines' },
-        { id: 'drinksGrid', data: menuData.drinks, title: '🥤 Soft Drinks & Beverages' },
-        { id: 'watersGrid', data: menuData.waters, title: '💧 Premium Waters' },
-        { id: 'beersGrid', data: menuData.beers, title: '🍺 Beers & Ales' },
-        { id: 'spiritsGrid', data: menuData.spirits, title: '🥃 Spirits & Liqueurs' },
-        { id: 'hotGrid', data: menuData.hot, title: '☕ Hot Beverages' },
-        { id: 'juicesGrid', data: menuData.juices, title: '🧃 Juices & Smoothies' },
-        { id: 'cocktailsGrid', data: menuData.cocktails, title: '🍸 Cocktails & Mocktails' }
-    ];
-    
-    categories.forEach(category => {
-        const filteredItems = category.data.filter(item => 
-            item.name.toLowerCase().includes(searchTerm)
-        );
-        
-        const grid = document.getElementById(category.id);
-        const categorySection = grid.closest('.category-section');
-        
-        if (filteredItems.length > 0) {
-            hasResults = true;
-            renderCategory(category.id, filteredItems);
-            categorySection.style.display = 'block';
-        } else {
-            categorySection.style.display = 'none';
+                </footer>
+            `;
+            
+            document.getElementById('footer').innerHTML = footerHTML;
         }
-    });
-    
-    if (hasResults) {
-        menuContainer.style.display = 'block';
-        notFound.style.display = 'none';
-    } else {
-        menuContainer.style.display = 'none';
-        notFound.style.display = 'block';
-    }
-}
 
-// Initialize the menu when page loads
-document.addEventListener('DOMContentLoaded', initializeMenu);
+        function initializeMobileMenu() {
+            // Wait a bit to ensure DOM is ready
+            setTimeout(() => {
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const mobileMenu = document.getElementById('mobileMenu');
 
+                if (mobileMenuBtn && mobileMenu) {
+                    // Remove any existing event listeners
+                    mobileMenuBtn.replaceWith(mobileMenuBtn.cloneNode(true));
+                    const newMobileMenuBtn = document.getElementById('mobileMenuBtn');
 
+                    // Add click event listener
+                    newMobileMenuBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        console.log('Mobile menu button clicked');
+                        
+                        newMobileMenuBtn.classList.toggle('active');
+                        mobileMenu.classList.toggle('active');
+                    });
 
+                    // Close menu when clicking on links
+                    document.querySelectorAll('.mobile-menu a').forEach(link => {
+                        link.addEventListener('click', function() {
+                            newMobileMenuBtn.classList.remove('active');
+                            mobileMenu.classList.remove('active');
+                        });
+                    });
 
+                    // Close menu when clicking outside
+                    document.addEventListener('click', function(event) {
+                        if (!newMobileMenuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                            newMobileMenuBtn.classList.remove('active');
+                            mobileMenu.classList.remove('active');
+                        }
+                    });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// localStorage functions for client bills data persistence
-// Note: Use this code in your own environment, not in Claude.ai artifacts
-
-// Load client bills from localStorage
-function loadClientBills() {
-    try {
-        const stored = localStorage.getItem('clientBills');
-        if (stored) {
-            clientBills = JSON.parse(stored);
-            updateClientBillsDisplay();
-        }
-    } catch (error) {
-        console.error('Error loading client bills:', error);
-        clientBills = [];
-    }
-}
-
-// Save client bills to localStorage
-function saveClientBills() {
-    try {
-        localStorage.setItem('clientBills', JSON.stringify(clientBills));
-    } catch (error) {
-        console.error('Error saving client bills:', error);
-    }
-}
-
-// Modified handleOrderSubmit function with localStorage
-function handleOrderSubmit(e) {
-    e.preventDefault();
-    
-    if (!currentOrderItem) return;
-    
-    const formData = new FormData(e.target);
-    const clientName = formData.get('clientName');
-    const clientPhone = formData.get('clientPhone');
-    const paymentAmount = parseFloat(formData.get('paymentAmount')) || 0;
-    
-    const itemPrice = parseFloat(currentOrderItem.price.replace('£', ''));
-    const orderDate = new Date().toLocaleDateString();
-    const orderTime = new Date().toLocaleTimeString();
-    
-    // Find existing client or create new one
-    let existingClient = clientBills.find(client => 
-        client.name === clientName && client.phone === clientPhone
-    );
-    
-    if (existingClient) {
-        // Update existing client
-        existingClient.orders.push({
-            item: currentOrderItem.name,
-            emoji: currentOrderItem.emoji,
-            price: itemPrice,
-            date: orderDate,
-            time: orderTime
-        });
-        existingClient.totalAmount += itemPrice;
-        existingClient.paidAmount += paymentAmount;
-        existingClient.balance = existingClient.paidAmount - existingClient.totalAmount;
-        existingClient.lastOrderDate = orderDate;
-        existingClient.lastOrderTime = orderTime;
-    } else {
-        // Create new client
-        const newClient = {
-            name: clientName,
-            phone: clientPhone,
-            orders: [{
-                item: currentOrderItem.name,
-                emoji: currentOrderItem.emoji,
-                price: itemPrice,
-                date: orderDate,
-                time: orderTime
-            }],
-            totalAmount: itemPrice,
-            paidAmount: paymentAmount,
-            balance: paymentAmount - itemPrice,
-            lastOrderDate: orderDate,
-            lastOrderTime: orderTime
-        };
-        clientBills.push(newClient);
-    }
-    
-    // Save to localStorage
-    saveClientBills();
-    
-    // Update client bills display
-    updateClientBillsDisplay();
-    
-    // Close modal
-    closeModal();
-    
-    // Show success message
-    alert('Order placed successfully and saved!');
-}
-
-// Modified initializeMenu function
-function initializeMenu() {
-    populateNavigation();
-    renderAllCategories();
-    setupEventListeners();
-    loadClientBills(); // Load stored data on startup
-}
-
-// Additional utility functions for data management
-function clearAllBills() {
-    if (confirm('Are you sure you want to clear all client bills? This action cannot be undone.')) {
-        clientBills = [];
-        saveClientBills();
-        updateClientBillsDisplay();
-        alert('All client bills have been cleared.');
-    }
-}
-
-function exportBillsData() {
-    const dataStr = JSON.stringify(clientBills, null, 2);
-    const dataBlob = new Blob([dataStr], {type: 'application/json'});
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'client_bills_' + new Date().toISOString().split('T')[0] + '.json';
-    link.click();
-    URL.revokeObjectURL(url);
-}
-
-function importBillsData(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const importedData = JSON.parse(e.target.result);
-                if (Array.isArray(importedData)) {
-                    clientBills = importedData;
-                    saveClientBills();
-                    updateClientBillsDisplay();
-                    alert('Bills data imported successfully!');
+                    console.log('Mobile menu initialized successfully');
                 } else {
-                    alert('Invalid file format. Please select a valid JSON file.');
+                    console.error('Mobile menu elements not found');
                 }
-            } catch (error) {
-                alert('Error reading file. Please select a valid JSON file.');
+            }, 100);
+        }
+
+        // Smooth scrolling for anchor links
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(e.target.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             }
-        };
-        reader.readAsText(file);
-    }
-}
+        });
+
+        // Load header and footer when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Try to load external files first, fallback to default if they don't exist
+            loadHTML('header', 'header.html');
+            loadHTML('footer', 'footer.html');
+        });
 
 
 
@@ -1723,6 +994,87 @@ function importBillsData(event) {
 
 
 
+
+
+
+
+
+
+
+
+        // Add smooth scrolling and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate statistics on scroll
+            const observerOptions = {
+                threshold: 0.5,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statNumbers = entry.target.querySelectorAll('.stat-number');
+                        statNumbers.forEach(stat => {
+                            animateCounter(stat);
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            const statsSection = document.querySelector('.stats');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+
+            // Counter animation function
+            function animateCounter(element) {
+                const target = parseInt(element.textContent.replace(/[^0-9]/g, ''));
+                const increment = target / 100;
+                let current = 0;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    
+                    if (element.textContent.includes('$')) {
+                        element.textContent = '$' + formatNumber(Math.floor(current)) + (element.textContent.includes('M') ? 'M+' : '+');
+                    } else if (element.textContent.includes('%')) {
+                        element.textContent = current.toFixed(1) + '%';
+                    } else {
+                        element.textContent = formatNumber(Math.floor(current)) + '+';
+                    }
+                }, 20);
+            }
+
+            function formatNumber(num) {
+                return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add parallax effect to hero section
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            });
+        });
     </script>
 </body>
 </html>
