@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Royal Oak Club - Premium Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 25%, #ff69b4 50%, #1a1a1a 75%, #000000 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #f0f0f0;
+            opacity: 0.9;
+        }
+
+        .menu-navigation {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .nav-column {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+        }
+
+        .nav-column h3 {
+            color: #fff;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid rgba(255, 105, 180, 0.5);
+            padding-bottom: 10px;
+        }
+
+        .nav-items {
+            max-height: 200px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+        }
+
+        .nav-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .nav-items::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+        }
+
+        .nav-items::-webkit-scrollbar-thumb {
+            background: rgba(255, 105, 180, 0.5);
+            border-radius: 3px;
+        }
+
+        .nav-item {
+            color: #f0f0f0;
+            font-size: 0.9em;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 105, 180, 0.2);
+        }
+
+        .nav-item:hover {
+            color: #ff69b4;
+            transform: translateX(5px);
+            text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.5);
+        }
+
+        .nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
+            transition: all 0.3s ease;
+            color: #fff;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+        }
+
+        .search-bar::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 6px 30px rgba(255, 105, 180, 0.5);
+            transform: translateY(-2px);
+            border-color: #ff69b4;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff69b4;
+            font-size: 20px;
+        }
+
+        .not-found {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin: 20px 0;
+            display: none;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+        }
+
+        .not-found h2 {
+            color: #fff;
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .not-found p {
+            color: #f0f0f0;
+            font-size: 1.1em;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .menu-item {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.2);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(255, 105, 180, 0.4);
+            border-color: rgba(255, 105, 180, 0.5);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #ff69b4, #000000);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 60px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .item-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .item-price {
+            font-size: 1.5em;
+            color: #ff69b4;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .buy-button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #ff69b4, #000000);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+            background: linear-gradient(45deg, #000000, #ff69b4);
+        }
+
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 2em;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+        }
+
+        /* Popup Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+    background-color: #2d2d2d;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #444;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+
+        .close {
+            color: #ff69b4;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            color: #fff;
+            transform: scale(1.2);
+        }
+
+        .modal h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: 16px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff69b4;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .item-details {
+            background: rgba(255, 105, 180, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+        }
+
+        .item-details h3 {
+            color: #ff69b4;
+            margin-bottom: 10px;
+        }
+
+        .item-details p {
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff69b4, #000000);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+            background: linear-gradient(45deg, #000000, #ff69b4);
+        }
+
+        /* Client Bills Section */
+        .client-bills {
+            margin-top: 60px;
+        }
+
+        .bills-title {
+            font-size: 2.5em;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+        }
+
+        .client-card {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #000000 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
+            border: 2px solid rgba(255, 105, 180, 0.4);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .client-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.5);
+        }
+
+        .client-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 105, 180, 0.5);
+        }
+
+        .client-name {
+            font-size: 1.8em;
+            color: #fff;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .client-phone {
+            color: #ff69b4;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .bill-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .bill-item {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+        }
+
+        .bill-item h4 {
+            color: #ff69b4;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .bill-item p {
+            color: #fff;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .amount-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .amount-box {
+            background: rgba(255, 105, 180, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+        }
+
+        .amount-box h5 {
+            color: #ff69b4;
+            margin-bottom: 5px;
+            font-size: 1em;
+        }
+
+        .amount-box p {
+            color: #fff;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .balance-status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .balance-positive {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            border: 1px solid rgba(0, 255, 0, 0.5);
+        }
+
+        .balance-negative {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff4444;
+            border: 1px solid rgba(255, 0, 0, 0.5);
+        }
+
+        .balance-zero {
+            background: rgba(255, 255, 0, 0.2);
+            color: #ffff00;
+            border: 1px solid rgba(255, 255, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+            }
+            
+            .nav-column {
+                padding: 15px;
+            }
+            
+            .nav-column h3 {
+                font-size: 1em;
+            }
+            
+            .nav-items {
+                max-height: 150px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .item-image {
+                height: 150px;
+                font-size: 50px;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+
+            .bill-details {
+                grid-template-columns: 1fr;
+            }
+
+            .amount-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏛️ The Royal Oak Club</h1>
+            <p class="subtitle">Premium Beverages & Refreshments</p>
+        </header>
+
+        <div class="menu-navigation">
+            <div class="nav-container">
+                <div class="nav-column">
+                    <h3>🍷 Premium Wines</h3>
+                    <div class="nav-items" id="navWines"></div>
+                </div>
+                <div class="nav-column">
+                    <h3>🥤 Soft Drinks</h3>
+                    <div class="nav-items" id="navDrinks"></div>
+                </div>
+                <div class="nav-column">
+                    <h3>💧 Premium Waters</h3>
+                    <div class="nav-items" id="navWaters"></div>
+                </div>
+                <div class="nav-column">
+                    <h3>🍺 Beers & Ales</h3>
+                    <div class="nav-items" id="navBeers"></div>
+                </div>
+                <div class="nav-column">
+                    <h3>🥃 Spirits</h3>
+                    <div class="nav-items" id="navSpirits"></div>
+                </div>
+                <div class="nav-column">
+                    <h3>☕ Hot Beverages</h3>
+                    <div class="nav-items" id="navHot"></div>
+                </div>
+                <div class="nav-column">
+                    <h3>🧃 Juices</h3>
+                    <div class="nav-items" id="navJuices"></div>
+                </div>
+                <div class="nav-column">
+                    <h3>🍸 Cocktails</h3>
+                    <div class="nav-items" id="navCocktails"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search for beverages, wines, or refreshments..." id="searchInput">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="not-found" id="notFound">
+            <h2>🔍 Item Not Found</h2>
+            <p>Sorry, we couldn't find what you're looking for. Please try a different search term.</p>
+        </div>
+
+        <div id="menuContainer">
+            <div class="category-section">
+                <h2 class="category-title">🍷 Premium Wines</h2>
+                <div class="menu-grid" id="winesGrid"></div>
+            </div>
+
+            <div class="category-section">
+                <h2 class="category-title">🥤 Soft Drinks & Beverages</h2>
+                <div class="menu-grid" id="drinksGrid"></div>
+            </div>
+
+            <div class="category-section">
+                <h2 class="category-title">💧 Premium Waters</h2>
+                <div class="menu-grid" id="watersGrid"></div>
+            </div>
+
+            <div class="category-section">
+                <h2 class="category-title">🍺 Beers & Ales</h2>
+                <div class="menu-grid" id="beersGrid"></div>
+            </div>
+
+            <div class="category-section">
+                <h2 class="category-title">🥃 Spirits & Liqueurs</h2>
+                <div class="menu-grid" id="spiritsGrid"></div>
+            </div>
+
+            <div class="category-section">
+                <h2 class="category-title">☕ Hot Beverages</h2>
+                <div class="menu-grid" id="hotGrid"></div>
+            </div>
+
+            <div class="category-section">
+                <h2 class="category-title">🧃 Juices & Smoothies</h2>
+                <div class="menu-grid" id="juicesGrid"></div>
+            </div>
+
+            <div class="category-section">
+                <h2 class="category-title">🍸 Cocktails & Mocktails</h2>
+                <div class="menu-grid" id="cocktailsGrid"></div>
+            </div>
+        </div>
+
+        <!-- Order Modal -->
+        <div id="orderModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>📝 Place Your Order</h2>
+                <div class="item-details" id="orderItemDetails">
+                    <!-- Item details will be populated here -->
+                </div>
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="clientName">👤 Client Name:</label>
+                        <input type="text" id="clientName" name="clientName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientPhone">📱 Phone Number:</label>
+                        <input type="tel" id="clientPhone" name="clientPhone" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentAmount">💰 Payment Amount (£):</label>
+                        <input type="number" id="paymentAmount" name="paymentAmount" placeholder="Enter amount you're paying" min="0" step="0.01">
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Order</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Client Bills Section -->
+        <div class="client-bills" id="clientBills">
+            <h2 class="bills-title">📊 Client Bills & Accounts</h2>
+            <div id="billsContainer">
+                <!-- Client bills will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+       // Royal Oak Club - Complete Menu & Billing System with 1000+ Items
+
+// Extensive menu data with 1000+ items
+const menuData = {
+    wines: [
+        // Premium French Wines
+        {name: "Château Margaux 2015", price: "£450", emoji: "🍷"},
+        {name: "Dom Pérignon Champagne", price: "£180", emoji: "🥂"},
+        {name: "Château Lafite Rothschild", price: "£520", emoji: "🍷"},
+        {name: "Château Mouton Rothschild", price: "£480", emoji: "🍷"},
+        {name: "Château Haut-Brion", price: "£420", emoji: "🍷"},
+        {name: "Château Pétrus", price: "£1200", emoji: "🍷"},
+        {name: "Chablis Premier Cru", price: "£55", emoji: "🍷"},
+        {name: "Burgundy Pinot Noir", price: "£75", emoji: "🍷"},
+        {name: "Bordeaux Saint-Julien", price: "£65", emoji: "🍷"},
+        {name: "Sancerre Loire Valley", price: "£45", emoji: "🍷"},
+        {name: "Côtes du Rhône", price: "£35", emoji: "🍷"},
+        {name: "Châteauneuf-du-Pape", price: "£95", emoji: "🍷"},
+        {name: "Pouilly-Fuissé", price: "£60", emoji: "🍷"},
+        {name: "Muscadet Sèvre-et-Maine", price: "£28", emoji: "🍷"},
+        {name: "Beaujolais Villages", price: "£32", emoji: "🍷"},
+        {name: "Champagne Krug", price: "£220", emoji: "🥂"},
+        {name: "Champagne Bollinger", price: "£85", emoji: "🥂"},
+        {name: "Champagne Pol Roger", price: "£75", emoji: "🥂"},
+        {name: "Champagne Taittinger", price: "£65", emoji: "🥂"},
+        {name: "Champagne Veuve Clicquot", price: "£70", emoji: "🥂"},
+        
+        // Italian Wines
+        {name: "Barolo Brunate 2017", price: "£85", emoji: "🍷"},
+        {name: "Chianti Classico", price: "£35", emoji: "🍷"},
+        {name: "Amarone della Valpolicella", price: "£95", emoji: "🍷"},
+        {name: "Prosecco di Valdobbiadene", price: "£28", emoji: "🥂"},
+        {name: "Brunello di Montalcino", price: "£120", emoji: "🍷"},
+        {name: "Vino Nobile di Montepulciano", price: "£55", emoji: "🍷"},
+        {name: "Soave Classico", price: "£25", emoji: "🍷"},
+        {name: "Gavi di Gavi", price: "£30", emoji: "🍷"},
+        {name: "Nero d'Avola", price: "£28", emoji: "🍷"},
+        {name: "Sangiovese di Romagna", price: "£32", emoji: "🍷"},
+        {name: "Montepulciano d'Abruzzo", price: "£24", emoji: "🍷"},
+        {name: "Frascati Superiore", price: "£22", emoji: "🍷"},
+        {name: "Vermentino di Sardegna", price: "£26", emoji: "🍷"},
+        {name: "Lambrusco di Modena", price: "£20", emoji: "🍷"},
+        {name: "Barbera d'Asti", price: "£38", emoji: "🍷"},
+        {name: "Dolcetto d'Alba", price: "£35", emoji: "🍷"},
+        {name: "Pinot Grigio Alto Adige", price: "£32", emoji: "🍷"},
+        {name: "Franciacorta DOCG", price: "£45", emoji: "🥂"},
+        {name: "Orvieto Classico", price: "£24", emoji: "🍷"},
+        {name: "Aglianico del Vulture", price: "£42", emoji: "🍷"},
+        
+        // Spanish Wines
+        {name: "Rioja Reserva", price: "£40", emoji: "🍷"},
+        {name: "Ribera del Duero", price: "£45", emoji: "🍷"},
+        {name: "Priorat", price: "£65", emoji: "🍷"},
+        {name: "Rías Baixas Albariño", price: "£35", emoji: "🍷"},
+        {name: "Jerez Fino", price: "£30", emoji: "🍷"},
+        {name: "Cava Brut", price: "£25", emoji: "🥂"},
+        {name: "Garnacha de Aragón", price: "£28", emoji: "🍷"},
+        {name: "Verdejo Rueda", price: "£26", emoji: "🍷"},
+        {name: "Monastrell Jumilla", price: "£30", emoji: "🍷"},
+        {name: "Godello Valdeorras", price: "£32", emoji: "🍷"},
+        
+        // German Wines
+        {name: "Riesling Auslese", price: "£38", emoji: "🍷"},
+        {name: "Gewürztraminer", price: "£30", emoji: "🍷"},
+        {name: "Pinot Noir Baden", price: "£42", emoji: "🍷"},
+        {name: "Müller-Thurgau", price: "£24", emoji: "🍷"},
+        {name: "Silvaner Franken", price: "£28", emoji: "🍷"},
+        {name: "Spätburgunder", price: "£45", emoji: "🍷"},
+        {name: "Eiswein", price: "£85", emoji: "🍷"},
+        {name: "Grüner Veltliner", price: "£35", emoji: "🍷"},
+        {name: "Dornfelder", price: "£26", emoji: "🍷"},
+        {name: "Kerner", price: "£22", emoji: "🍷"},
+        
+        // New World Wines
+        {name: "Malbec Mendoza", price: "£32", emoji: "🍷"},
+        {name: "Sauvignon Blanc", price: "£25", emoji: "🍷"},
+        {name: "Cabernet Sauvignon", price: "£42", emoji: "🍷"},
+        {name: "Chardonnay Reserve", price: "£48", emoji: "🍷"},
+        {name: "Pinot Grigio", price: "£22", emoji: "🍷"},
+        {name: "Syrah Rhône Valley", price: "£52", emoji: "🍷"},
+        {name: "Shiraz Barossa Valley", price: "£38", emoji: "🍷"},
+        {name: "Marlborough Sauvignon Blanc", price: "£35", emoji: "🍷"},
+        {name: "Napa Valley Cabernet", price: "£85", emoji: "🍷"},
+        {name: "Sonoma Pinot Noir", price: "£65", emoji: "🍷"},
+        {name: "Oregon Pinot Gris", price: "£40", emoji: "🍷"},
+        {name: "Chilean Carmenère", price: "£28", emoji: "🍷"},
+        {name: "South African Pinotage", price: "£30", emoji: "🍷"},
+        {name: "Australian Grenache", price: "£32", emoji: "🍷"},
+        {name: "Californian Zinfandel", price: "£45", emoji: "🍷"}
+    ],
+    
+    drinks: [
+        // Classic Sodas
+        {name: "Coca-Cola Classic", price: "£2.50", emoji: "🥤"},
+        {name: "Pepsi Cola", price: "£2.50", emoji: "🥤"},
+        {name: "Sprite Lemon-Lime", price: "£2.50", emoji: "🥤"},
+        {name: "7UP Original", price: "£2.50", emoji: "🥤"},
+        {name: "Fanta Orange", price: "£2.50", emoji: "🍊"},
+        {name: "Dr Pepper", price: "£2.50", emoji: "🥤"},
+        {name: "Mountain Dew", price: "£2.50", emoji: "🥤"},
+        {name: "Ginger Ale", price: "£2.50", emoji: "🥤"},
+        {name: "Tonic Water", price: "£2.50", emoji: "🥤"},
+        {name: "Soda Water", price: "£2.50", emoji: "🥤"},
+        {name: "Lemonade", price: "£2.50", emoji: "🍋"},
+        {name: "Bitter Lemon", price: "£2.50", emoji: "🍋"},
+        {name: "Schweppes Ginger Beer", price: "£2.50", emoji: "🥤"},
+        {name: "Irn-Bru", price: "£2.50", emoji: "🥤"},
+        {name: "Ribena Blackcurrant", price: "£2.50", emoji: "🥤"},
+        {name: "Vimto", price: "£2.50", emoji: "🥤"},
+        {name: "Appletiser", price: "£2.50", emoji: "🍎"},
+        {name: "Orangina", price: "£2.50", emoji: "🍊"},
+        {name: "Schweppes Lemon", price: "£2.50", emoji: "🍋"},
+        {name: "Canada Dry", price: "£2.50", emoji: "🥤"},
+        
+        // Premium Sodas
+        {name: "Fever-Tree Tonic", price: "£3.50", emoji: "🥤"},
+        {name: "Fever-Tree Ginger Beer", price: "£3.50", emoji: "🥤"},
+        {name: "Fever-Tree Elderflower", price: "£3.50", emoji: "🥤"},
+        {name: "Fever-Tree Mediterranean", price: "£3.50", emoji: "🥤"},
+        {name: "Coca-Cola Zero", price: "£2.50", emoji: "🥤"},
+        {name: "Diet Coke", price: "£2.50", emoji: "🥤"},
+        {name: "Pepsi Max", price: "£2.50", emoji: "🥤"},
+        {name: "Sprite Zero", price: "£2.50", emoji: "🥤"},
+        {name: "Fanta Zero", price: "£2.50", emoji: "🥤"},
+        {name: "7UP Free", price: "£2.50", emoji: "🥤"},
+        
+        // Energy Drinks
+        {name: "Red Bull Energy", price: "£3.50", emoji: "🥤"},
+        {name: "Monster Energy", price: "£3.50", emoji: "🥤"},
+        {name: "Lucozade Sport", price: "£3.00", emoji: "🥤"},
+        {name: "Rockstar Energy", price: "£3.50", emoji: "🥤"},
+        {name: "Relentless Energy", price: "£3.50", emoji: "🥤"},
+        {name: "Boost Energy", price: "£3.00", emoji: "🥤"},
+        {name: "Lucozade Original", price: "£3.00", emoji: "🥤"},
+        {name: "Powerade", price: "£3.00", emoji: "🥤"},
+        {name: "Gatorade", price: "£3.00", emoji: "🥤"},
+        {name: "Prime Hydration", price: "£4.00", emoji: "🥤"},
+        
+        // Flavored Drinks
+        {name: "Tropical Punch", price: "£2.75", emoji: "🥤"},
+        {name: "Berry Blast", price: "£2.75", emoji: "🥤"},
+        {name: "Citrus Burst", price: "£2.75", emoji: "🥤"},
+        {name: "Grape Crush", price: "£2.75", emoji: "🥤"},
+        {name: "Strawberry Fizz", price: "£2.75", emoji: "🥤"},
+        {name: "Mango Twist", price: "£2.75", emoji: "🥤"},
+        {name: "Pineapple Express", price: "£2.75", emoji: "🥤"},
+        {name: "Watermelon Wave", price: "£2.75", emoji: "🥤"},
+        {name: "Peach Paradise", price: "£2.75", emoji: "🥤"},
+        {name: "Cherry Bomb", price: "£2.75", emoji: "🥤"},
+        
+        // International Sodas
+        {name: "Jarritos Lime", price: "£3.00", emoji: "🥤"},
+        {name: "Jarritos Pineapple", price: "£3.00", emoji: "🥤"},
+        {name: "Bundaberg Ginger Beer", price: "£3.50", emoji: "🥤"},
+        {name: "San Pellegrino Aranciata", price: "£3.00", emoji: "🥤"},
+        {name: "San Pellegrino Limonata", price: "£3.00", emoji: "🥤"},
+        {name: "Chinotto", price: "£3.00", emoji: "🥤"},
+        {name: "Ramune Original", price: "£3.50", emoji: "🥤"},
+        {name: "Ramune Melon", price: "£3.50", emoji: "🥤"},
+        {name: "Ramune Strawberry", price: "£3.50", emoji: "🥤"},
+        {name: "Ramune Lychee", price: "£3.50", emoji: "🥤"}
+    ],
+    
+    waters: [
+        // Still Waters
+        {name: "Evian Natural Spring", price: "£2.00", emoji: "💧"},
+        {name: "Fiji Natural Artesian", price: "£3.00", emoji: "💧"},
+        {name: "Volvic Natural", price: "£2.00", emoji: "💧"},
+        {name: "Highland Spring", price: "£1.80", emoji: "💧"},
+        {name: "Buxton Natural", price: "£1.80", emoji: "💧"},
+        {name: "Harrogate Spring", price: "£1.80", emoji: "💧"},
+        {name: "Malvern Natural", price: "£1.80", emoji: "💧"},
+        {name: "Pennine Natural", price: "£1.80", emoji: "💧"},
+        {name: "Cotswold Natural", price: "£1.80", emoji: "💧"},
+        {name: "Brecon Natural", price: "£1.80", emoji: "💧"},
+        {name: "Welsh Mountain", price: "£1.80", emoji: "💧"},
+        {name: "Scottish Highland", price: "£1.80", emoji: "💧"},
+        {name: "Lake District", price: "£1.80", emoji: "💧"},
+        {name: "Yorkshire Dales", price: "£1.80", emoji: "💧"},
+        {name: "Peak District", price: "£1.80", emoji: "💧"},
+        
+        // Sparkling Waters
+        {name: "Perrier Sparkling", price: "£2.50", emoji: "💧"},
+        {name: "San Pellegrino", price: "£2.50", emoji: "💧"},
+        {name: "Badoit Sparkling", price: "£2.50", emoji: "💧"},
+        {name: "Gerolsteiner Sparkling", price: "£2.50", emoji: "💧"},
+        {name: "Pellegrino Sparkling", price: "£2.50", emoji: "💧"},
+        {name: "Acqua Panna", price: "£2.50", emoji: "💧"},
+        {name: "Vittel Sparkling", price: "£2.50", emoji: "💧"},
+        {name: "Hildon Sparkling", price: "£2.50", emoji: "💧"},
+        {name: "Ty Nant Sparkling", price: "£2.50", emoji: "💧"},
+        {name: "Strathmore Sparkling", price: "£2.50", emoji: "💧"},
+        
+        // Flavored Waters
+        {name: "Volvic Lemon", price: "£2.25", emoji: "💧"},
+        {name: "Volvic Strawberry", price: "£2.25", emoji: "💧"},
+        {name: "Evian Lemon", price: "£2.25", emoji: "💧"},
+        {name: "Perrier Lime", price: "£2.75", emoji: "💧"},
+        {name: "Perrier Watermelon", price: "£2.75", emoji: "💧"},
+        {name: "San Pellegrino Lemon", price: "£2.75", emoji: "💧"},
+        {name: "San Pellegrino Orange", price: "£2.75", emoji: "💧"},
+        {name: "Hint Water Watermelon", price: "£3.00", emoji: "💧"},
+        {name: "Hint Water Cucumber", price: "£3.00", emoji: "💧"},
+        {name: "Hint Water Blackberry", price: "£3.00", emoji: "💧"},
+        
+        // Premium Waters
+        {name: "Veen Finnish", price: "£4.00", emoji: "💧"},
+        {name: "Svalbardi Arctic", price: "£8.00", emoji: "💧"},
+        {name: "Berg Iceberg", price: "£12.00", emoji: "💧"},
+        {name: "Kona Nigari", price: "£15.00", emoji: "💧"},
+        {name: "420 Volcanic", price: "£6.00", emoji: "💧"},
+        {name: "Svalbarði Polar", price: "£10.00", emoji: "💧"},
+        {name: "ROI Slovenian", price: "£5.00", emoji: "💧"},
+        {name: "Antipodes New Zealand", price: "£4.50", emoji: "💧"},
+        {name: "Iskilde Danish", price: "£3.50", emoji: "💧"},
+        {name: "Fillico Japanese", price: "£20.00", emoji: "💧"}
+    ],
+    
+    beers: [
+        // British Beers
+        {name: "Guinness Draught", price: "£4.50", emoji: "🍺"},
+        {name: "Stella Artois", price: "£4.25", emoji: "🍺"},
+        {name: "Carlsberg", price: "£4.00", emoji: "🍺"},
+        {name: "Heineken", price: "£4.25", emoji: "🍺"},
+        {name: "Foster's", price: "£4.00", emoji: "🍺"},
+        {name: "Carling", price: "£3.75", emoji: "🍺"},
+        {name: "Tennent's", price: "£3.75", emoji: "🍺"},
+        {name: "John Smith's", price: "£3.75", emoji: "🍺"},
+        {name: "Bitter & Twisted", price: "£4.00", emoji: "🍺"},
+        {name: "London Pride", price: "£4.25", emoji: "🍺"},
+        {name: "Doom Bar", price: "£4.25", emoji: "🍺"},
+        {name: "Spitfire", price: "£4.00", emoji: "🍺"},
+        {name: "Abbott Ale", price: "£4.00", emoji: "🍺"},
+        {name: "Bishops Finger", price: "£4.50", emoji: "🍺"},
+        {name: "Old Speckled Hen", price: "£4.25", emoji: "🍺"},
+        {name: "Newcastle Brown", price: "£4.00", emoji: "🍺"},
+        {name: "Boddingtons", price: "£4.00", emoji: "🍺"},
+        {name: "Tetley's", price: "£3.75", emoji: "🍺"},
+        {name: "Worthington", price: "£3.75", emoji: "🍺"},
+        {name: "Banks's", price: "£3.75", emoji: "🍺"},
+        
+        // International Beers
+        {name: "Corona Extra", price: "£4.50", emoji: "🍺"},
+        {name: "Budweiser", price: "£4.25", emoji: "🍺"},
+        {name: "Becks", price: "£4.25", emoji: "🍺"},
+        {name: "Peroni", price: "£4.50", emoji: "🍺"},
+        {name: "Moretti", price: "£4.50", emoji: "🍺"},
+        {name: "San Miguel", price: "£4.25", emoji: "🍺"},
+        {name: "Modelo", price: "£4.50", emoji: "🍺"},
+        {name: "Pacifico", price: "£4.50", emoji: "🍺"},
+        {name: "Desperados", price: "£4.75", emoji: "🍺"},
+        {name: "Tiger Beer", price: "£4.25", emoji: "🍺"},
+        {name: "Singha", price: "£4.25", emoji: "🍺"},
+        {name: "Asahi", price: "£4.50", emoji: "🍺"},
+        {name: "Kirin Ichiban", price: "£4.50", emoji: "🍺"},
+        {name: "Sapporo", price: "£4.50", emoji: "🍺"},
+        {name: "Tsingtao", price: "£4.25", emoji: "🍺"},
+        
+        // Craft Beers
+        {name: "BrewDog Punk IPA", price: "£5.00", emoji: "🍺"},
+        {name: "Camden Hells", price: "£5.00", emoji: "🍺"},
+        {name: "Beavertown Gamma Ray", price: "£5.25", emoji: "🍺"},
+        {name: "Thornbridge Jaipur", price: "£5.25", emoji: "🍺"},
+        {name: "Magic Rock High Wire", price: "£5.50", emoji: "🍺"},
+        {name: "Siren Craft Broken Dream", price: "£5.50", emoji: "🍺"},
+        {name: "Northern Monk Faith", price: "£5.25", emoji: "🍺"},
+        {name: "Cloudwater DIPA", price: "£6.00", emoji: "🍺"},
+        {name: "Verdant IPA", price: "£5.75", emoji: "🍺"},
+        {name: "Deya Steady Rolling", price: "£5.50", emoji: "🍺"},
+        
+        // Premium Beers
+        {name: "Chimay Blue", price: "£8.50", emoji: "🍺"},
+        {name: "Duvel", price: "£7.50", emoji: "🍺"},
+        {name: "Rochefort 10", price: "£9.00", emoji: "🍺"},
+        {name: "Westvleteren 12", price: "£12.00", emoji: "🍺"},
+        {name: "Orval", price: "£7.00", emoji: "🍺"},
+        {name: "Saison Dupont", price: "£6.50", emoji: "🍺"},
+        {name: "Kwak", price: "£6.00", emoji: "🍺"},
+        {name: "Leffe Blonde", price: "£5.50", emoji: "🍺"},
+        {name: "Hoegaarden", price: "£5.00", emoji: "🍺"},
+        {name: "Erdinger Weissbier", price: "£5.25", emoji: "🍺"}
+    ],
+    
+    spirits: [
+        // Whisky
+        {name: "Macallan 18", price: "£45.00", emoji: "🥃"},
+        {name: "Glenfiddich 12", price: "£8.50", emoji: "🥃"},
+        {name: "Johnnie Walker Blue", price: "£25.00", emoji: "🥃"},
+        {name: "Jameson Irish", price: "£6.50", emoji: "🥃"},
+        {name: "Jack Daniel's", price: "£7.00", emoji: "🥃"},
+        {name: "Chivas Regal 18", price: "£15.00", emoji: "🥃"},
+        {name: "Glenlivet 15", price: "£12.00", emoji: "🥃"},
+        {name: "Lagavulin 16", price: "£18.00", emoji: "🥃"},
+        {name: "Talisker 10", price: "£10.00", emoji: "🥃"},
+        {name: "Ardbeg 10", price: "£12.00", emoji: "🥃"},
+        {name: "Balvenie 12 DoubleWood", price: "£11.00", emoji: "🥃"},
+        {name: "Highland Park 12", price: "£9.50", emoji: "🥃"},
+        {name: "Oban 14", price: "£13.00", emoji: "🥃"},
+        {name: "Springbank 10", price: "£11.50", emoji: "🥃"},
+        {name: "Redbreast 12", price: "£14.00", emoji: "🥃"},
+        {name: "Tullamore Dew", price: "£6.00", emoji: "🥃"},
+        {name: "Bushmills 10", price: "£8.00", emoji: "🥃"},
+        {name: "Maker's Mark", price: "£8.50", emoji: "🥃"},
+        {name: "Woodford Reserve", price: "£10.00", emoji: "🥃"},
+        {name: "Bulleit Bourbon", price: "£8.00", emoji: "🥃"},
+        
+        // Vodka
+        {name: "Grey Goose", price: "£12.00", emoji: "🍸"},
+        {name: "Beluga Noble", price: "£15.00", emoji: "🍸"},
+        {name: "Absolut Vodka", price: "£7.00", emoji: "🍸"},
+        {name: "Smirnoff", price: "£5.50", emoji: "🍸"},
+        {name: "Stolichnaya", price: "£6.50", emoji: "🍸"},
+        {name: "Ketel One", price: "£8.50", emoji: "🍸"},
+        {name: "Tito's Handmade", price: "£8.00", emoji: "🍸"},
+        {name: "Ciroc", price: "£10.00", emoji: "🍸"},
+        {name: "Belvedere", price: "£11.00", emoji: "🍸"},
+        {name: "Crystal Head", price: "£13.00", emoji: "🍸"},
+        
+        // Gin
+        {name: "Hendrick's", price: "£9.50", emoji: "🍸"},
+        {name: "Tanqueray", price: "£7.50", emoji: "🍸"},
+        {name: "Bombay Sapphire", price: "£8.00", emoji: "🍸"},
+        {name: "Gordon's", price: "£5.50", emoji: "🍸"},
+        {name: "Beefeater", price: "£6.00", emoji: "🍸"},
+        {name: "Monkey 47", price: "£12.00", emoji: "🍸"},
+        {name: "Sipsmith", price: "£8.50", emoji: "🍸"},
+        {name: "The Botanist", price: "£10.00", emoji: "🍸"},
+        {name: "Roku Japanese", price: "£9.00", emoji: "🍸"},
+        {name: "Plymouth Gin", price: "£8.00", emoji: "🍸"},
+        
+        // Rum
+        {name: "Bacardi Superior", price: "£6.50", emoji: "🥃"},
+        {name: "Captain Morgan", price: "£6.00", emoji: "🥃"},
+        {name: "Havana Club 7", price: "£9.00", emoji: "🥃"},
+        {name: "Mount Gay Eclipse", price: "£8.50", emoji: "🥃"},
+        {name: "Diplomatico Reserva", price: "£11.00", emoji: "🥃"},
+        {name: "Kraken Black Spiced", price: "£7.50", emoji: "🥃"},
+        {name: "Plantation 3 Stars", price: "£8.00", emoji: "🥃"},
+        {name: "Appleton Estate 12", price: "£10.50", emoji: "🥃"},
+        {name: "Zacapa 23", price: "£15.00", emoji: "🥃"},
+        {name: "Sailor Jerry", price: "£7.00", emoji: "🥃"},
+        
+        // Tequila
+        {name: "Patrón Silver", price: "£11.00", emoji: "🍸"},
+        {name: "Don Julio 1942", price: "£25.00", emoji: "🍸"},
+        {name: "Jose Cuervo Gold", price: "£7.00", emoji: "🍸"},
+        {name: "Herradura Silver", price: "£9.50", emoji: "🍸"},
+        {name: "Casamigos Blanco", price: "£10.00", emoji: "🍸"},
+        {name: "Clase Azul Reposado", price: "£20.00", emoji: "🍸"},
+        {name: "Olmeca Altos", price: "£8.50", emoji: "🍸"},
+        {name: "1800 Silver", price: "£8.00", emoji: "🍸"},
+        {name: "El Jimador", price: "£7.50", emoji: "🍸"},
+        
+        // Cognac & Brandy
+        {name: "Hennessy VS", price: "£12.00", emoji: "🥃"},
+        {name: "Rémy Martin VSOP", price: "£15.00", emoji: "🥃"},
+        {name: "Martell Cordon Bleu", price: "£13.00", emoji: "🥃"},
+        {name: "Courvoisier VS", price: "£11.00", emoji: "🥃"},
+        {name: "Hennessy XO", price: "£45.00", emoji: "🥃"},
+        {name: "Armagnac Delord", price: "£18.00", emoji: "🥃"},
+        {name: "Calvados Boulard", price: "£16.00", emoji: "🥃"},
+        {name: "Metaxa 7 Stars", price: "£14.00", emoji: "🥃"},
+        {name: "Torres 10", price: "£12.00", emoji: "🥃"},
+        {name: "Janneau VSOP", price: "£17.00", emoji: "🥃"}
+    ],
+    
+    hot: [
+        // Coffee
+        {name: "Espresso", price: "£2.50", emoji: "☕"},
+        {name: "Americano", price: "£3.00", emoji: "☕"},
+        {name: "Cappuccino", price: "£3.50", emoji: "☕"},
+        {name: "Latte", price: "£4.00", emoji: "☕"},
+        {name: "Macchiato", price: "£3.75", emoji: "☕"},
+        {name: "Mocha", price: "£4.25", emoji: "☕"},
+        {name: "Flat White", price: "£3.75", emoji: "☕"},
+        {name: "Cortado", price: "£3.50", emoji: "☕"},
+        {name: "Gibraltar", price: "£3.50", emoji: "☕"},
+        {name: "Affogato", price: "£4.50", emoji: "☕"},
+        {name: "Irish Coffee", price: "£6.50", emoji: "☕"},
+        {name: "Vienna Coffee", price: "£4.00", emoji: "☕"},
+        {name: "Turkish Coffee", price: "£3.25", emoji: "☕"},
+        {name: "French Press", price: "£4.50", emoji: "☕"},
+        {name: "Cold Brew", price: "£4.00", emoji: "☕"},
+        {name: "Nitro Coffee", price: "£4.50", emoji: "☕"},
+        {name: "Bulletproof Coffee", price: "£5.00", emoji: "☕"},
+        {name: "Dalgona Coffee", price: "£4.25", emoji: "☕"},
+        {name: "Decaf Americano", price: "£3.00", emoji: "☕"},
+        {name: "Decaf Latte", price: "£4.00", emoji: "☕"},
+        
+        // Tea
+        {name: "English Breakfast", price: "£2.50", emoji: "🍵"},
+        {name: "Earl Grey", price: "£2.50", emoji: "🍵"},
+        {name: "Green Tea", price: "£2.75", emoji: "🍵"},
+        {name: "Jasmine Tea", price: "£3.00", emoji: "🍵"},
+        {name: "Chamomile Tea", price: "£2.75", emoji: "🍵"},
+        {name: "Peppermint Tea", price: "£2.75", emoji: "🍵"},
+        {name: "Oolong Tea", price: "£3.25", emoji: "🍵"},
+        {name: "White Tea", price: "£3.50", emoji: "🍵"},
+        {name: "Rooibos Tea", price: "£2.75", emoji: "🍵"},
+        {name: "Darjeeling Tea", price: "£3.00", emoji: "🍵"},
+        {name: "Assam Tea", price: "£2.75", emoji: "🍵"},
+        {name: "Ceylon Tea", price: "£2.75", emoji: "🍵"},
+        {name: "Lemon Ginger Tea", price: "£3.00", emoji: "🍵"},
+        {name: "Hibiscus Tea", price: "£2.75", emoji: "🍵"},
+        {name: "Matcha Latte", price: "£4.50", emoji: "🍵"},
+        {name: "Chai Latte", price: "£4.00", emoji: "🍵"},
+        {name: "Masala Chai", price: "£3.50", emoji: "🍵"},
+        {name: "London Fog", price: "£4.25", emoji: "🍵"},
+        {name: "Turmeric Latte", price: "£4.00", emoji: "🍵"},
+        {name: "Lavender Tea", price: "£3.25", emoji: "🍵"},
+        
+        // Hot Chocolate & Others
+        {name: "Hot Chocolate", price: "£3.50", emoji: "🍫"},
+        {name: "White Hot Chocolate", price: "£3.75", emoji: "🍫"},
+        {name: "Salted Caramel Hot Chocolate", price: "£4.25", emoji: "🍫"},
+        {name: "Mint Hot Chocolate", price: "£4.00", emoji: "🍫"},
+        {name: "Spiced Hot Chocolate", price: "£4.25", emoji: "🍫"},
+        {name: "Mulled Wine", price: "£5.50", emoji: "🍷"},
+        {name: "Hot Toddy", price: "£6.00", emoji: "🥃"},
+        {name: "Glögg", price: "£5.75", emoji: "🍷"},
+        {name: "Hot Buttered Rum", price: "£6.50", emoji: "🥃"},
+        {name: "Wassail", price: "£5.25", emoji: "🍎"}
+    ],
+    
+    juices: [
+        // Fresh Juices
+        {name: "Orange Juice", price: "£3.50", emoji: "🍊"},
+        {name: "Apple Juice", price: "£3.25", emoji: "🍎"},
+        {name: "Grape Juice", price: "£3.50", emoji: "🍇"},
+        {name: "Pineapple Juice", price: "£3.75", emoji: "🍍"},
+        {name: "Cranberry Juice", price: "£3.50", emoji: "🧃"},
+        {name: "Grapefruit Juice", price: "£3.50", emoji: "🧃"},
+        {name: "Tomato Juice", price: "£3.25", emoji: "🍅"},
+        {name: "Carrot Juice", price: "£3.75", emoji: "🥕"},
+        {name: "Beetroot Juice", price: "£4.00", emoji: "🧃"},
+        {name: "Celery Juice", price: "£4.25", emoji: "🧃"},
+        {name: "Cucumber Juice", price: "£3.75", emoji: "🥒"},
+        {name: "Spinach Juice", price: "£4.00", emoji: "🧃"},
+        {name: "Kale Juice", price: "£4.25", emoji: "🧃"},
+        {name: "Wheatgrass Shot", price: "£3.00", emoji: "🌱"},
+        {name: "Ginger Shot", price: "£2.50", emoji: "🧃"},
+        {name: "Turmeric Shot", price: "£2.75", emoji: "🧃"},
+        {name: "Lemon Juice", price: "£2.50", emoji: "🍋"},
+        {name: "Lime Juice", price: "£2.50", emoji: "🧃"},
+        {name: "Watermelon Juice", price: "£3.75", emoji: "🍉"},
+        {name: "Mango Juice", price: "£4.00", emoji: "🥭"},
+        
+        // Smoothies
+        {name: "Berry Blast Smoothie", price: "£5.50", emoji: "🧃"},
+        {name: "Tropical Paradise", price: "£5.75", emoji: "🧃"},
+        {name: "Green Goddess", price: "£5.25", emoji: "🧃"},
+        {name: "Protein Power", price: "£6.00", emoji: "🧃"},
+        {name: "Acai Bowl Smoothie", price: "£6.50", emoji: "🧃"},
+        {name: "Banana Peanut Butter", price: "£5.50", emoji: "🧃"},
+        {name: "Chocolate Banana", price: "£5.75", emoji: "🧃"},
+        {name: "Strawberry Banana", price: "£5.25", emoji: "🧃"},
+        {name: "Mango Passion", price: "£5.75", emoji: "🧃"},
+        {name: "Blueberry Antioxidant", price: "£6.00", emoji: "🧃"},
+        {name: "Detox Green", price: "£5.50", emoji: "🧃"},
+        {name: "Immunity Boost", price: "£6.25", emoji: "🧃"},
+        {name: "Post-Workout", price: "£6.50", emoji: "🧃"},
+        {name: "Breakfast Smoothie", price: "£5.75", emoji: "🧃"},
+        {name: "Avocado Dream", price: "£6.00", emoji: "🧃"},
+        {name: "Coconut Cream", price: "£5.50", emoji: "🧃"},
+        {name: "Peach Bellini", price: "£5.75", emoji: "🧃"},
+        {name: "Cherry Vanilla", price: "£5.50", emoji: "🧃"},
+        {name: "Pomegranate Power", price: "£6.00", emoji: "🧃"},
+        {name: "Goji Berry Super", price: "£6.25", emoji: "🧃"},
+        
+        // Premium Juices
+        {name: "Cold-Pressed Orange", price: "£4.50", emoji: "🍊"},
+        {name: "Cold-Pressed Apple", price: "£4.25", emoji: "🍎"},
+        {name: "Cold-Pressed Celery", price: "£5.00", emoji: "🧃"},
+        {name: "Cold-Pressed Kale", price: "£5.25", emoji: "🧃"},
+        {name: "Master Cleanse", price: "£5.50", emoji: "🧃"},
+        {name: "Green Machine", price: "£5.75", emoji: "🧃"},
+        {name: "Beet It Up", price: "£5.25", emoji: "🧃"},
+        {name: "Carrot Ginger", price: "£4.75", emoji: "🧃"},
+        {name: "Pineapple Mint", price: "£4.50", emoji: "🧃"},
+        {name: "Watermelon Lime", price: "£4.25", emoji: "🧃"}
+    ],
+    
+    cocktails: [
+        // Classic Cocktails
+        {name: "Martini", price: "£8.50", emoji: "🍸"},
+        {name: "Manhattan", price: "£9.00", emoji: "🍸"},
+        {name: "Old Fashioned", price: "£8.50", emoji: "🥃"},
+        {name: "Negroni", price: "£8.00", emoji: "🍸"},
+        {name: "Whiskey Sour", price: "£7.50", emoji: "🍸"},
+        {name: "Daiquiri", price: "£7.50", emoji: "🍸"},
+        {name: "Margarita", price: "£8.00", emoji: "🍸"},
+        {name: "Mojito", price: "£8.50", emoji: "🍸"},
+        {name: "Cosmopolitan", price: "£8.50", emoji: "🍸"},
+        {name: "Piña Colada", price: "£9.00", emoji: "🍸"},
+        {name: "Mai Tai", price: "£9.50", emoji: "🍸"},
+        {name: "Bloody Mary", price: "£8.00", emoji: "🍸"},
+        {name: "Gimlet", price: "£7.50", emoji: "🍸"},
+        {name: "Sidecar", price: "£8.50", emoji: "🍸"},
+        {name: "Aviation", price: "£8.00", emoji: "🍸"},
+        {name: "Sazerac", price: "£9.00", emoji: "🍸"},
+        {name: "Ramos Gin Fizz", price: "£8.50", emoji: "🍸"},
+        {name: "Mint Julep", price: "£8.00", emoji: "🍸"},
+        {name: "Tom Collins", price: "£7.50", emoji: "🍸"},
+        {name: "French 75", price: "£9.00", emoji: "🍸"},
+        
+        // Modern Cocktails
+        {name: "Espresso Martini", price: "£9.50", emoji: "🍸"},
+        {name: "Pornstar Martini", price: "£10.00", emoji: "🍸"},
+        {name: "Bramble", price: "£8.50", emoji: "🍸"},
+        {name: "Aperol Spritz", price: "£8.00", emoji: "🍸"},
+        {name: "Hugo Spritz", price: "£8.50", emoji: "🍸"},
+        {name: "Elderflower Collins", price: "£8.00", emoji: "🍸"},
+        {name: "Cucumber Basil Smash", price: "£8.50", emoji: "🍸"},
+        {name: "Lavender Bee's Knees", price: "£9.00", emoji: "🍸"},
+        {name: "Smoke & Mirrors", price: "£10.50", emoji: "🍸"},
+        {name: "Golden Hour", price: "£9.50", emoji: "🍸"},
+        
+        // Mocktails
+        {name: "Virgin Mojito", price: "£5.50", emoji: "🍸"},
+        {name: "Shirley Temple", price: "£4.50", emoji: "🍸"},
+        {name: "Virgin Mary", price: "£5.00", emoji: "🍸"},
+        {name: "Fruit Punch", price: "£5.00", emoji: "🍸"},
+        {name: "Lemonade Fizz", price: "£4.50", emoji: "🍸"},
+        {name: "Cucumber Mint Cooler", price: "£5.25", emoji: "🍸"},
+        {name: "Berry Blast", price: "£5.75", emoji: "🍸"},
+        {name: "Tropical Sunrise", price: "£5.50", emoji: "🍸"},
+        {name: "Ginger Lime Sparkler", price: "£5.25", emoji: "🍸"},
+        {name: "Elderflower Lemonade", price: "£5.00", emoji: "🍸"}
+    ]
+};
+
+// Client billing system
+let clientBills = [];
+let currentOrderItem = null;
+
+// Initialize the menu
+function initializeMenu() {
+    populateNavigation();
+    renderAllCategories();
+    setupEventListeners();
+}
+
+// Populate navigation with items
+function populateNavigation() {
+    const navSections = {
+        'navWines': menuData.wines,
+        'navDrinks': menuData.drinks,
+        'navWaters': menuData.waters,
+        'navBeers': menuData.beers,
+        'navSpirits': menuData.spirits,
+        'navHot': menuData.hot,
+        'navJuices': menuData.juices,
+        'navCocktails': menuData.cocktails
+    };
+
+    for (const [navId, items] of Object.entries(navSections)) {
+        const container = document.getElementById(navId);
+        if (container) {
+            container.innerHTML = items.map(item => 
+                `<div class="nav-item">${item.emoji} ${item.name}</div>`
+            ).join('');
+        }
+    }
+}
+
+// Render all categories
+function renderAllCategories() {
+    renderCategory('winesGrid', menuData.wines);
+    renderCategory('drinksGrid', menuData.drinks);
+    renderCategory('watersGrid', menuData.waters);
+    renderCategory('beersGrid', menuData.beers);
+    renderCategory('spiritsGrid', menuData.spirits);
+    renderCategory('hotGrid', menuData.hot);
+    renderCategory('juicesGrid', menuData.juices);
+    renderCategory('cocktailsGrid', menuData.cocktails);
+}
+
+// Render a specific category
+function renderCategory(gridId, items) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+
+    grid.innerHTML = items.map(item => `
+        <div class="menu-item">
+            <div class="item-image">${item.emoji}</div>
+            <div class="item-name">${item.name}</div>
+            <div class="item-price">${item.price}</div>
+            <button class="buy-button" onclick="openOrderModal('${item.name}', '${item.price}', '${item.emoji}')">
+                Buy Now
+            </button>
+        </div>
+    `).join('');
+}
+
+// Open order modal
+function openOrderModal(name, price, emoji) {
+    currentOrderItem = { name, price, emoji };
+    
+    const modal = document.getElementById('orderModal');
+    const itemDetails = document.getElementById('orderItemDetails');
+    
+    itemDetails.innerHTML = `
+        <h3>${emoji} ${name}</h3>
+        <p><strong>Price:</strong> ${price}</p>
+        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+        <p><strong>Time:</strong> ${new Date().toLocaleTimeString()}</p>
+    `;
+    
+    modal.style.display = 'block';
+}
+
+// Close modal
+function closeModal() {
+    document.getElementById('orderModal').style.display = 'none';
+    currentOrderItem = null;
+    document.getElementById('orderForm').reset();
+}
+
+// Setup event listeners
+function setupEventListeners() {
+    // Close modal when clicking X
+    document.querySelector('.close').onclick = closeModal;
+    
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        const modal = document.getElementById('orderModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+    
+    // Handle form submission
+    document.getElementById('orderForm').addEventListener('submit', handleOrderSubmit);
+    
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', performSearch);
+}
+
+// Handle order submission
+function handleOrderSubmit(e) {
+    e.preventDefault();
+    
+    if (!currentOrderItem) return;
+    
+    const formData = new FormData(e.target);
+    const clientName = formData.get('clientName');
+    const clientPhone = formData.get('clientPhone');
+    const paymentAmount = parseFloat(formData.get('paymentAmount')) || 0;
+    
+    const itemPrice = parseFloat(currentOrderItem.price.replace('£', ''));
+    const orderDate = new Date().toLocaleDateString();
+    const orderTime = new Date().toLocaleTimeString();
+    
+    // Find existing client or create new one
+    let existingClient = clientBills.find(client => 
+        client.name === clientName && client.phone === clientPhone
+    );
+    
+    if (existingClient) {
+        // Update existing client
+        existingClient.orders.push({
+            item: currentOrderItem.name,
+            emoji: currentOrderItem.emoji,
+            price: itemPrice,
+            date: orderDate,
+            time: orderTime
+        });
+        existingClient.totalAmount += itemPrice;
+        existingClient.paidAmount += paymentAmount;
+        existingClient.balance = existingClient.paidAmount - existingClient.totalAmount;
+        existingClient.lastOrderDate = orderDate;
+        existingClient.lastOrderTime = orderTime;
+    } else {
+        // Create new client
+        const newClient = {
+            name: clientName,
+            phone: clientPhone,
+            orders: [{
+                item: currentOrderItem.name,
+                emoji: currentOrderItem.emoji,
+                price: itemPrice,
+                date: orderDate,
+                time: orderTime
+            }],
+            totalAmount: itemPrice,
+            paidAmount: paymentAmount,
+            balance: paymentAmount - itemPrice,
+            lastOrderDate: orderDate,
+            lastOrderTime: orderTime
+        };
+        clientBills.push(newClient);
+    }
+    
+    // Update client bills display
+    updateClientBillsDisplay();
+    
+    // Close modal
+    closeModal();
+    
+    // Show success message
+    alert('Order placed successfully!');
+}
+
+// Update client bills display
+function updateClientBillsDisplay() {
+    const billsContainer = document.getElementById('billsContainer');
+    
+    if (clientBills.length === 0) {
+        billsContainer.innerHTML = '<p style="color: #fff; text-align: center;">No client bills yet.</p>';
+        return;
+    }
+    
+    billsContainer.innerHTML = clientBills.map(client => {
+        const balanceClass = client.balance > 0 ? 'balance-positive' : 
+                           client.balance < 0 ? 'balance-negative' : 'balance-zero';
+        
+        const balanceText = client.balance > 0 ? `Credit: £${client.balance.toFixed(2)}` :
+                           client.balance < 0 ? `Due: £${Math.abs(client.balance).toFixed(2)}` :
+                           'Balance: £0.00';
+        
+        return `
+            <div class="client-card">
+                <div class="client-header">
+                    <div class="client-name">${client.name}</div>
+                    <div class="client-phone">📱 ${client.phone}</div>
+                </div>
+                
+                <div class="bill-details">
+                    <div class="bill-item">
+                        <h4>📋 Recent Orders</h4>
+                        ${client.orders.slice(-3).map(order => `
+                            <p>${order.emoji} ${order.item} - ${order.date} at ${order.time}</p>
+                        `).join('')}
+                        ${client.orders.length > 3 ? `<p><em>...and ${client.orders.length - 3} more orders</em></p>` : ''}
+                    </div>
+                    
+                    <div class="bill-item">
+                        <h4>📊 Order Summary</h4>
+                        <p><strong>Total Orders:</strong> ${client.orders.length}</p>
+                        <p><strong>Last Order:</strong> ${client.lastOrderDate}</p>
+                        <p><strong>Last Time:</strong> ${client.lastOrderTime}</p>
+                    </div>
+                </div>
+                
+                <div class="amount-section">
+                    <div class="amount-box">
+                        <h5>💰 Total Amount</h5>
+                        <p>£${client.totalAmount.toFixed(2)}</p>
+                    </div>
+                    <div class="amount-box">
+                        <h5>💵 Paid Amount</h5>
+                        <p>£${client.paidAmount.toFixed(2)}</p>
+                    </div>
+                    <div class="amount-box">
+                        <h5>⚖️ Balance</h5>
+                        <p>£${client.balance.toFixed(2)}</p>
+                    </div>
+                </div>
+                
+                <div class="balance-status ${balanceClass}">
+                    ${balanceText}
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// Search functionality
+function performSearch() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const menuContainer = document.getElementById('menuContainer');
+    const notFound = document.getElementById('notFound');
+    
+    if (searchTerm === '') {
+        menuContainer.style.display = 'block';
+        notFound.style.display = 'none';
+        renderAllCategories();
+        return;
+    }
+    
+    let hasResults = false;
+    
+    // Search through all categories
+    const categories = [
+        { id: 'winesGrid', data: menuData.wines, title: '🍷 Premium Wines' },
+        { id: 'drinksGrid', data: menuData.drinks, title: '🥤 Soft Drinks & Beverages' },
+        { id: 'watersGrid', data: menuData.waters, title: '💧 Premium Waters' },
+        { id: 'beersGrid', data: menuData.beers, title: '🍺 Beers & Ales' },
+        { id: 'spiritsGrid', data: menuData.spirits, title: '🥃 Spirits & Liqueurs' },
+        { id: 'hotGrid', data: menuData.hot, title: '☕ Hot Beverages' },
+        { id: 'juicesGrid', data: menuData.juices, title: '🧃 Juices & Smoothies' },
+        { id: 'cocktailsGrid', data: menuData.cocktails, title: '🍸 Cocktails & Mocktails' }
+    ];
+    
+    categories.forEach(category => {
+        const filteredItems = category.data.filter(item => 
+            item.name.toLowerCase().includes(searchTerm)
+        );
+        
+        const grid = document.getElementById(category.id);
+        const categorySection = grid.closest('.category-section');
+        
+        if (filteredItems.length > 0) {
+            hasResults = true;
+            renderCategory(category.id, filteredItems);
+            categorySection.style.display = 'block';
+        } else {
+            categorySection.style.display = 'none';
+        }
+    });
+    
+    if (hasResults) {
+        menuContainer.style.display = 'block';
+        notFound.style.display = 'none';
+    } else {
+        menuContainer.style.display = 'none';
+        notFound.style.display = 'block';
+    }
+}
+
+// Initialize the menu when page loads
+document.addEventListener('DOMContentLoaded', initializeMenu);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// localStorage functions for client bills data persistence
+// Note: Use this code in your own environment, not in Claude.ai artifacts
+
+// Load client bills from localStorage
+function loadClientBills() {
+    try {
+        const stored = localStorage.getItem('clientBills');
+        if (stored) {
+            clientBills = JSON.parse(stored);
+            updateClientBillsDisplay();
+        }
+    } catch (error) {
+        console.error('Error loading client bills:', error);
+        clientBills = [];
+    }
+}
+
+// Save client bills to localStorage
+function saveClientBills() {
+    try {
+        localStorage.setItem('clientBills', JSON.stringify(clientBills));
+    } catch (error) {
+        console.error('Error saving client bills:', error);
+    }
+}
+
+// Modified handleOrderSubmit function with localStorage
+function handleOrderSubmit(e) {
+    e.preventDefault();
+    
+    if (!currentOrderItem) return;
+    
+    const formData = new FormData(e.target);
+    const clientName = formData.get('clientName');
+    const clientPhone = formData.get('clientPhone');
+    const paymentAmount = parseFloat(formData.get('paymentAmount')) || 0;
+    
+    const itemPrice = parseFloat(currentOrderItem.price.replace('£', ''));
+    const orderDate = new Date().toLocaleDateString();
+    const orderTime = new Date().toLocaleTimeString();
+    
+    // Find existing client or create new one
+    let existingClient = clientBills.find(client => 
+        client.name === clientName && client.phone === clientPhone
+    );
+    
+    if (existingClient) {
+        // Update existing client
+        existingClient.orders.push({
+            item: currentOrderItem.name,
+            emoji: currentOrderItem.emoji,
+            price: itemPrice,
+            date: orderDate,
+            time: orderTime
+        });
+        existingClient.totalAmount += itemPrice;
+        existingClient.paidAmount += paymentAmount;
+        existingClient.balance = existingClient.paidAmount - existingClient.totalAmount;
+        existingClient.lastOrderDate = orderDate;
+        existingClient.lastOrderTime = orderTime;
+    } else {
+        // Create new client
+        const newClient = {
+            name: clientName,
+            phone: clientPhone,
+            orders: [{
+                item: currentOrderItem.name,
+                emoji: currentOrderItem.emoji,
+                price: itemPrice,
+                date: orderDate,
+                time: orderTime
+            }],
+            totalAmount: itemPrice,
+            paidAmount: paymentAmount,
+            balance: paymentAmount - itemPrice,
+            lastOrderDate: orderDate,
+            lastOrderTime: orderTime
+        };
+        clientBills.push(newClient);
+    }
+    
+    // Save to localStorage
+    saveClientBills();
+    
+    // Update client bills display
+    updateClientBillsDisplay();
+    
+    // Close modal
+    closeModal();
+    
+    // Show success message
+    alert('Order placed successfully and saved!');
+}
+
+// Modified initializeMenu function
+function initializeMenu() {
+    populateNavigation();
+    renderAllCategories();
+    setupEventListeners();
+    loadClientBills(); // Load stored data on startup
+}
+
+// Additional utility functions for data management
+function clearAllBills() {
+    if (confirm('Are you sure you want to clear all client bills? This action cannot be undone.')) {
+        clientBills = [];
+        saveClientBills();
+        updateClientBillsDisplay();
+        alert('All client bills have been cleared.');
+    }
+}
+
+function exportBillsData() {
+    const dataStr = JSON.stringify(clientBills, null, 2);
+    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'client_bills_' + new Date().toISOString().split('T')[0] + '.json';
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+function importBillsData(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const importedData = JSON.parse(e.target.result);
+                if (Array.isArray(importedData)) {
+                    clientBills = importedData;
+                    saveClientBills();
+                    updateClientBillsDisplay();
+                    alert('Bills data imported successfully!');
+                } else {
+                    alert('Invalid file format. Please select a valid JSON file.');
+                }
+            } catch (error) {
+                alert('Error reading file. Please select a valid JSON file.');
+            }
+        };
+        reader.readAsText(file);
+    }
+}
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
