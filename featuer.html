@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexible Installment Payment Plugin - Features</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 140%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .feature-description {
+            color: #5a6c7d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .feature-highlights {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-highlights li {
+            padding: 8px 0;
+            color: #34495e;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .feature-highlights li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .demo-section {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 50px;
+            margin-bottom: 60px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+        }
+
+        .demo-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .demo-interface {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .payment-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            padding: 12px 16px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .payment-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .payment-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e6ed;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            width: 35%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        .platform-support {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .platform-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+
+        .platform-logos {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .platform-logo {
+            background: rgba(255,255,255,0.9);
+            padding: 20px 30px;
+            border-radius: 15px;
+            font-weight: 600;
+            color: #2c3e50;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .platform-logo:hover {
+            transform: translateY(-5px);
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .platform-logos {
+                gap: 20px;
+            }
+            
+            .demo-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="header"></div>
+
+
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Flexible Installment Payment Plugin</h1>
+                <p class="hero-subtitle">Empower your customers with complete payment flexibility - no fixed percentages, no restrictions, just pure payment freedom</p>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3 class="feature-title">Flexible Payment Amounts</h3>
+                <p class="feature-description">Let customers pay any amount they want, whenever they want - no mandatory percentages or fixed installment rules.</p>
+                <ul class="feature-highlights">
+                    <li>Pay any amount from $1 to full balance</li>
+                    <li>No minimum payment restrictions</li>
+                    <li>Customer-controlled payment schedule</li>
+                    <li>Real-time balance calculations</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Smart Payment History</h3>
+                <p class="feature-description">Comprehensive payment tracking with detailed history and analytics for both customers and merchants.</p>
+                <ul class="feature-highlights">
+                    <li>Complete payment timeline</li>
+                    <li>Remaining balance tracking</li>
+                    <li>Payment method history</li>
+                    <li>Downloadable payment receipts</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <h3 class="feature-title">Seamless Integration</h3>
+                <p class="feature-description">Easy one-click integration with your existing e-commerce platform without any coding required.</p>
+                <ul class="feature-highlights">
+                    <li>Shopify, WooCommerce, Custom PHP support</li>
+                    <li>Product page integration</li>
+                    <li>Responsive design</li>
+                    <li>Mobile-optimized interface</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">Secure & Reliable</h3>
+                <p class="feature-description">Enterprise-grade security with PCI compliance and advanced fraud protection mechanisms.</p>
+                <ul class="feature-highlights">
+                    <li>PCI DSS compliant</li>
+                    <li>SSL encryption</li>
+                    <li>Fraud detection</li>
+                    <li>Secure payment processing</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Real-time Notifications</h3>
+                <p class="feature-description">Instant notifications for both customers and merchants on payment activities and balance updates.</p>
+                <ul class="feature-highlights">
+                    <li>Email notifications</li>
+                    <li>SMS alerts</li>
+                    <li>Admin dashboard alerts</li>
+                    <li>Customer portal updates</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3 class="feature-title">Analytics & Reporting</h3>
+                <p class="feature-description">Comprehensive analytics dashboard with detailed insights into payment patterns and customer behavior.</p>
+                <ul class="feature-highlights">
+                    <li>Payment analytics</li>
+                    <li>Customer behavior insights</li>
+                    <li>Revenue tracking</li>
+                    <li>Export reports</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="demo-title">Live Payment Interface Demo</h2>
+            <div class="demo-interface">
+                <div class="payment-form">
+                    <div class="form-group">
+                        <label class="form-label">Product Total</label>
+                        <input type="text" class="form-input" value="$1,299.99" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Amount Already Paid</label>
+                        <input type="text" class="form-input" value="$450.00" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Remaining Balance</label>
+                        <input type="text" class="form-input" value="$849.99" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Payment Amount</label>
+                        <input type="text" class="form-input" placeholder="Enter any amount" value="$200.00">
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="form-label">Payment Method</label>
+                        <select class="form-input">
+                            <option>Credit Card</option>
+                            <option>PayPal</option>
+                            <option>Bank Transfer</option>
+                            <option>Digital Wallet</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="progress-text">35% Paid • $849.99 Remaining</div>
+                
+                <div style="text-align: center; margin-top: 25px;">
+                    <button class="payment-button">Make Payment</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="platform-support">
+            <h2 class="platform-title">Compatible Platforms</h2>
+            <div class="platform-logos">
+                <div class="platform-logo">🛒 Shopify</div>
+                <div class="platform-logo">🏪 WooCommerce</div>
+                <div class="platform-logo">⚡ Custom PHP</div>
+                <div class="platform-logo">🔧 JavaScript</div>
+                <div class="platform-logo">🌐 Magento</div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <a href="#" class="cta-button">Start Free Trial Today</a>
+        </div>
+    </div>
+
+
+    <div id="footer"></div>
+
+
+    <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function loadHTML(id, url) {
+            fetch(url)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                    
+                    // If header is loaded, initialize mobile menu
+                    if (id === 'header') {
+                        initializeMobileMenu();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading HTML:', error);
+                    // Fallback: Load default content if external file fails
+                    if (id === 'header') {
+                        loadDefaultHeader();
+                    }
+                    if (id === 'footer') {
+                        loadDefaultFooter();
+                    }
+                });
+        }
+
+        function loadDefaultHeader() {
+            const headerHTML = `
+                <nav class="navbar" id="navbar">
+                    <div class="nav-container">
+                        <a href="#" class="logo">
+                            <div class="logo-icon">💳</div>
+                            <span class="logo-text">FlexiPay</span>
+                        </a>
+
+                        <ul class="nav-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="featuer.html">Features</a></li>
+                            <li><a href="shop3.html">Flexible Installment and Billing Shop</a></li>
+                           <li><a href="manu.html">Menu</a></li>
+                            <li><a href="pricing.html">Pricing</a></li>
+                            <li><a href="support.html">Support</a></li>
+                            <li><a href="#docs.html">Docs</a></li>
+                            <li><a href="#contact.html">Contact</a></li>
+                        </ul>
+
+                        <a href="#demo" class="cta-button">
+                            <span>🚀</span>
+                            Get Started
+                        </a>
+
+                        <div class="mobile-menu-btn" id="mobileMenuBtn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="mobile-menu" id="mobileMenu">
+                    <ul>
+                        <li><a href="index.html">🏠 Home</a></li>
+                        <li><a href="featuer.html">✨ Features</a></li>
+                        <li><a href="shop3.html">Flexible Installment and Billing Shop</a></li>
+                        <li><a href="manu.html">Menu</a></li>    
+                        <li><a href="support..html">🛠️ Support</a></li>
+                        <li><a href="docs.html">📚 Docs</a></li>
+                        <li><a href="contact.html">📞 Contact</a></li>
+                        <li><a href="#demo" style="background: linear-gradient(135deg, #ff6b6b, #ffd93d); color: white;">🚀 Get Started</a></li>
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('header').innerHTML = headerHTML;
+            initializeMobileMenu();
+        }
+
+        function loadDefaultFooter() {
+            const footerHTML = `
+                <footer class="footer">
+                    <div class="footer-content">
+                        <div class="footer-section">
+                            <h3>FlexiPay</h3>
+                            <p>Your trusted payment solution for modern businesses. Simplifying transactions, one payment at a time.</p>
+                            <div class="social-links">
+                                <a href="#">📘</a>
+                                <a href="#">🐦</a>
+                                <a href="#">💼</a>
+                                <a href="#">📷</a>
+                            </div>
+                        </div>
+                        
+                        <div class="footer-section">
+                            <h3>Products</h3>
+                            <ul>
+                                <li><a href="#payment-gateway">Payment Gateway</a></li>
+                                <li><a href="#installment">Installment Plans</a></li>
+                                <li><a href="#analytics">Analytics Dashboard</a></li>
+                                <li><a href="#api">Developer API</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-section">
+                            <h3>Support</h3>
+                            <ul>
+                                <li><a href="#help">Help Center</a></li>
+                                <li><a href="#docs">Documentation</a></li>
+                                <li><a href="#contact">Contact Us</a></li>
+                                <li><a href="#status">System Status</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-section">
+                            <h3>Company</h3>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                                <li><a href="#careers">Careers</a></li>
+                                <li><a href="#press">Press</a></li>
+                                <li><a href="#blog">Blog</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 FlexiPay. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+                    </div>
+                </footer>
+            `;
+            
+            document.getElementById('footer').innerHTML = footerHTML;
+        }
+
+        function initializeMobileMenu() {
+            // Wait a bit to ensure DOM is ready
+            setTimeout(() => {
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const mobileMenu = document.getElementById('mobileMenu');
+
+                if (mobileMenuBtn && mobileMenu) {
+                    // Remove any existing event listeners
+                    mobileMenuBtn.replaceWith(mobileMenuBtn.cloneNode(true));
+                    const newMobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+                    // Add click event listener
+                    newMobileMenuBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        console.log('Mobile menu button clicked');
+                        
+                        newMobileMenuBtn.classList.toggle('active');
+                        mobileMenu.classList.toggle('active');
+                    });
+
+                    // Close menu when clicking on links
+                    document.querySelectorAll('.mobile-menu a').forEach(link => {
+                        link.addEventListener('click', function() {
+                            newMobileMenuBtn.classList.remove('active');
+                            mobileMenu.classList.remove('active');
+                        });
+                    });
+
+                    // Close menu when clicking outside
+                    document.addEventListener('click', function(event) {
+                        if (!newMobileMenuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                            newMobileMenuBtn.classList.remove('active');
+                            mobileMenu.classList.remove('active');
+                        }
+                    });
+
+                    console.log('Mobile menu initialized successfully');
+                } else {
+                    console.error('Mobile menu elements not found');
+                }
+            }, 100);
+        }
+
+        // Smooth scrolling for anchor links
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(e.target.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+
+        // Load header and footer when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Try to load external files first, fallback to default if they don't exist
+            loadHTML('header', 'header.html');
+            loadHTML('footer', 'footer.html');
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const paymentInput = document.querySelector('input[placeholder="Enter any amount"]');
+            const progressBar = document.querySelector('.progress-fill');
+            const progressText = document.querySelector('.progress-text');
+            const remainingBalance = document.querySelector('input[value="$849.99"]');
+            
+            paymentInput.addEventListener('input', function() {
+                const value = parseFloat(this.value.replace('$', '')) || 0;
+                const total = 1299.99;
+                const alreadyPaid = 450.00;
+                const newPaid = alreadyPaid + value;
+                const remaining = total - newPaid;
+                const percentage = (newPaid / total) * 100;
+                
+                progressBar.style.width = percentage + '%';
+                progressText.textContent = `${Math.round(percentage)}% Paid • $${remaining.toFixed(2)} Remaining`;
+                remainingBalance.value = `$${remaining.toFixed(2)}`;
+            });
+            
+            // Add hover effects to feature cards
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
