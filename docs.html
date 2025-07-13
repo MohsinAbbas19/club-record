@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plugin Documentation - Custom Flexible Installment Payment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .doc-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doc-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .doc-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .card-content {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4ecdc4;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: '</>';
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            color: #4ecdc4;
+            font-size: 0.8rem;
+        }
+
+        .api-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .api-endpoint {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .api-endpoint:hover {
+            border-color: #4ecdc4;
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.2);
+        }
+
+        .method-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .method-get { background: #c6f6d5; color: #22543d; }
+        .method-post { background: #fed7d7; color: #742a2a; }
+        .method-put { background: #feebc8; color: #7c2d12; }
+        .method-delete { background: #fbb6ce; color: #702459; }
+
+        .integration-steps {
+            counter-reset: step-counter;
+        }
+
+        .integration-step {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            counter-increment: step-counter;
+        }
+
+        .integration-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            top: -15px;
+            left: 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .platform-support {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .platform-badge {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .platform-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .security-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .security-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 25s linear infinite reverse;
+        }
+
+        .security-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .scrolling-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white"/></svg>') repeat;
+            animation: scroll 20s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100px); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .platform-support {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <div id="header"></div>
+
+
+    <div class="scrolling-bg"></div>
+    
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="main-title">Plugin Documentation</h1>
+                <p class="subtitle">Complete guide for Custom Flexible Installment Payment Plugin implementation</p>
+                <div class="version-badge">Version 2.0 - Advanced Edition</div>
+            </div>
+        </div>
+
+        <div class="docs-grid">
+            <div class="doc-card">
+                <div class="card-icon">🚀</div>
+                <h3 class="card-title">Quick Start Guide</h3>
+                <div class="card-content">
+                    <p>Get your installment payment system up and running in minutes with our streamlined setup process.</p>
+                    <ul class="feature-list">
+                        <li>One-click installation</li>
+                        <li>Automatic configuration</li>
+                        <li>Real-time validation</li>
+                        <li>Mobile-responsive design</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <div class="card-icon">⚙️</div>
+                <h3 class="card-title">Core Features</h3>
+                <div class="card-content">
+                    <p>Advanced functionality that makes flexible payments seamless for your customers.</p>
+                    <ul class="feature-list">
+                        <li>Unlimited flexible installments</li>
+                        <li>No percentage restrictions</li>
+                        <li>Real-time balance tracking</li>
+                        <li>Payment history dashboard</li>
+                        <li>Automated reminders</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <div class="card-icon">🔧</div>
+                <h3 class="card-title">Platform Integration</h3>
+                <div class="card-content">
+                    <p>Seamlessly integrate with your existing e-commerce platform.</p>
+                    <div class="platform-support">
+                        <span class="platform-badge">Shopify</span>
+                        <span class="platform-badge">WooCommerce</span>
+                        <span class="platform-badge">Custom PHP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <div class="card-icon">📊</div>
+                <h3 class="card-title">Analytics & Reporting</h3>
+                <div class="card-content">
+                    <p>Comprehensive insights into your installment payment performance.</p>
+                    <ul class="feature-list">
+                        <li>Payment success rates</li>
+                        <li>Customer behavior analysis</li>
+                        <li>Revenue forecasting</li>
+                        <li>Customizable dashboards</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <h2 class="card-title">API Documentation</h2>
+            <p class="card-content">Complete API reference for developers to integrate installment payments.</p>
+            
+            <div class="api-endpoint">
+                <span class="method-badge method-post">POST</span>
+                <strong>/api/installment/create</strong>
+                <p>Create a new installment payment plan</p>
+                <div class="code-block">
+{
+  "product_id": "12345",
+  "customer_id": "customer_123",
+  "total_amount": 1500.00,
+  "initial_payment": 300.00,
+  "currency": "USD"
+}
+                </div>
+            </div>
+
+            <div class="api-endpoint">
+                <span class="method-badge method-get">GET</span>
+                <strong>/api/installment/history/{customer_id}</strong>
+                <p>Retrieve customer's installment payment history</p>
+                <div class="code-block">
+{
+  "customer_id": "customer_123",
+  "total_plans": 3,
+  "active_plans": 2,
+  "completed_plans": 1,
+  "payments": [...]
+}
+                </div>
+            </div>
+
+            <div class="api-endpoint">
+                <span class="method-badge method-put">PUT</span>
+                <strong>/api/installment/payment</strong>
+                <p>Process an installment payment</p>
+                <div class="code-block">
+{
+  "plan_id": "plan_456",
+  "amount": 250.00,
+  "payment_method": "card",
+  "payment_token": "tok_123456"
+}
+                </div>
+            </div>
+        </div>
+
+        <div class="integration-steps">
+            <h2 class="card-title" style="text-align: center; margin-bottom: 2rem; color: white;">Integration Steps</h2>
+            
+            <div class="integration-step">
+                <h3 class="step-title">Download & Upload Plugin</h3>
+                <p>Download the plugin files and upload them to your server or install via your platform's plugin manager.</p>
+                <div class="code-block">
+# For WordPress/WooCommerce
+wp plugin install custom-installment-payment.zip
+
+# For Shopify
+Upload via Shopify App Store or Private App
+                </div>
+            </div>
+
+            <div class="integration-step">
+                <h3 class="step-title">Configure Payment Settings</h3>
+                <p>Set up your payment gateway credentials and configure installment rules through the admin panel.</p>
+                <ul class="feature-list">
+                    <li>Payment gateway integration (Stripe, PayPal, etc.)</li>
+                    <li>Minimum/maximum installment amounts</li>
+                    <li>Interest rates and fees</li>
+                    <li>Email notification templates</li>
+                </ul>
+            </div>
+
+            <div class="integration-step">
+                <h3 class="step-title">Customize Product Pages</h3>
+                <p>Add the installment payment widget to your product pages with custom styling.</p>
+                <div class="code-block">
+&lt;div class="installment-widget" data-product-id="{{product.id}}"&gt;
+    &lt;h3&gt;Flexible Installment Options&lt;/h3&gt;
+    &lt;div class="installment-calculator"&gt;&lt;/div&gt;
+&lt;/div&gt;
+                </div>
+            </div>
+
+            <div class="integration-step">
+                <h3 class="step-title">Test & Deploy</h3>
+                <p>Run comprehensive tests in sandbox mode before going live with real payments.</p>
+                <ul class="feature-list">
+                    <li>Test payment processing</li>
+                    <li>Verify email notifications</li>
+                    <li>Check mobile responsiveness</li>
+                    <li>Monitor error logs</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="security-section">
+            <div class="security-content">
+                <h2 class="card-title">Security & Compliance</h2>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">Built with enterprise-grade security standards to protect your business and customers.</p>
+                <div class="docs-grid">
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px;">
+                        <h4>🔒 Data Encryption</h4>
+                        <p>All payment data encrypted with AES-256 encryption</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px;">
+                        <h4>🛡️ PCI DSS Compliant</h4>
+                        <p>Fully compliant with PCI DSS standards</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px;">
+                        <h4>🔐 Secure Authentication</h4>
+                        <p>Multi-factor authentication and secure tokens</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px;">
+                        <h4>📋 Audit Trails</h4>
+                        <p>Complete transaction logging and monitoring</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2 class="card-title">Ready to Get Started?</h2>
+            <p class="card-content">Transform your e-commerce experience with flexible installment payments today.</p>
+            <a href="#" class="cta-button">Download Plugin</a>
+            <a href="#" class="cta-button">View Demo</a>
+            <a href="#" class="cta-button">Contact Support</a>
+        </div>
+    </div>
+
+
+
+    <div id="footer"></div>
+
+    <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function loadHTML(id, url) {
+            fetch(url)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                    
+                    // If header is loaded, initialize mobile menu
+                    if (id === 'header') {
+                        initializeMobileMenu();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading HTML:', error);
+                    // Fallback: Load default content if external file fails
+                    if (id === 'header') {
+                        loadDefaultHeader();
+                    }
+                    if (id === 'footer') {
+                        loadDefaultFooter();
+                    }
+                });
+        }
+
+        function loadDefaultHeader() {
+            const headerHTML = `
+                <nav class="navbar" id="navbar">
+                    <div class="nav-container">
+                        <a href="#" class="logo">
+                            <div class="logo-icon">💳</div>
+                            <span class="logo-text">FlexiPay</span>
+                        </a>
+
+                        <ul class="nav-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="featuer.html">Features</a></li>
+                            <li><a href="shop3.html">Flexible Installment and Billing Shop</a></li>
+                           <li><a href="manu.html">Menu</a></li>
+                            <li><a href="pricing.html">Pricing</a></li>
+                            <li><a href="support.html">Support</a></li>
+                            <li><a href="#docs.html">Docs</a></li>
+                            <li><a href="#contact.html">Contact</a></li>
+                        </ul>
+
+                        <a href="#demo" class="cta-button">
+                            <span>🚀</span>
+                            Get Started
+                        </a>
+
+                        <div class="mobile-menu-btn" id="mobileMenuBtn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="mobile-menu" id="mobileMenu">
+                    <ul>
+                        <li><a href="index.html">🏠 Home</a></li>
+                        <li><a href="featuer.html">✨ Features</a></li>
+                        <li><a href="shop3.html">Flexible Installment and Billing Shop</a></li>
+                        <li><a href="manu.html">Menu</a></li>    
+                        <li><a href="support..html">🛠️ Support</a></li>
+                        <li><a href="docs.html">📚 Docs</a></li>
+                        <li><a href="contact.html">📞 Contact</a></li>
+                        <li><a href="#demo" style="background: linear-gradient(135deg, #ff6b6b, #ffd93d); color: white;">🚀 Get Started</a></li>
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('header').innerHTML = headerHTML;
+            initializeMobileMenu();
+        }
+
+        function loadDefaultFooter() {
+            const footerHTML = `
+                <footer class="footer">
+                    <div class="footer-content">
+                        <div class="footer-section">
+                            <h3>FlexiPay</h3>
+                            <p>Your trusted payment solution for modern businesses. Simplifying transactions, one payment at a time.</p>
+                            <div class="social-links">
+                                <a href="#">📘</a>
+                                <a href="#">🐦</a>
+                                <a href="#">💼</a>
+                                <a href="#">📷</a>
+                            </div>
+                        </div>
+                        
+                        <div class="footer-section">
+                            <h3>Products</h3>
+                            <ul>
+                                <li><a href="#payment-gateway">Payment Gateway</a></li>
+                                <li><a href="#installment">Installment Plans</a></li>
+                                <li><a href="#analytics">Analytics Dashboard</a></li>
+                                <li><a href="#api">Developer API</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-section">
+                            <h3>Support</h3>
+                            <ul>
+                                <li><a href="#help">Help Center</a></li>
+                                <li><a href="#docs">Documentation</a></li>
+                                <li><a href="#contact">Contact Us</a></li>
+                                <li><a href="#status">System Status</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-section">
+                            <h3>Company</h3>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                                <li><a href="#careers">Careers</a></li>
+                                <li><a href="#press">Press</a></li>
+                                <li><a href="#blog">Blog</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 FlexiPay. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+                    </div>
+                </footer>
+            `;
+            
+            document.getElementById('footer').innerHTML = footerHTML;
+        }
+
+        function initializeMobileMenu() {
+            // Wait a bit to ensure DOM is ready
+            setTimeout(() => {
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const mobileMenu = document.getElementById('mobileMenu');
+
+                if (mobileMenuBtn && mobileMenu) {
+                    // Remove any existing event listeners
+                    mobileMenuBtn.replaceWith(mobileMenuBtn.cloneNode(true));
+                    const newMobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+                    // Add click event listener
+                    newMobileMenuBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        console.log('Mobile menu button clicked');
+                        
+                        newMobileMenuBtn.classList.toggle('active');
+                        mobileMenu.classList.toggle('active');
+                    });
+
+                    // Close menu when clicking on links
+                    document.querySelectorAll('.mobile-menu a').forEach(link => {
+                        link.addEventListener('click', function() {
+                            newMobileMenuBtn.classList.remove('active');
+                            mobileMenu.classList.remove('active');
+                        });
+                    });
+
+                    // Close menu when clicking outside
+                    document.addEventListener('click', function(event) {
+                        if (!newMobileMenuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                            newMobileMenuBtn.classList.remove('active');
+                            mobileMenu.classList.remove('active');
+                        }
+                    });
+
+                    console.log('Mobile menu initialized successfully');
+                } else {
+                    console.error('Mobile menu elements not found');
+                }
+            }, 100);
+        }
+
+        // Smooth scrolling for anchor links
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(e.target.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+
+        // Load header and footer when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Try to load external files first, fallback to default if they don't exist
+            loadHTML('header', 'header.html');
+            loadHTML('footer', 'footer.html');
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation to code blocks
+        document.querySelectorAll('.code-block').forEach(block => {
+            block.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            block.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Add interactive hover effects to cards
+        document.querySelectorAll('.doc-card, .integration-step').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add typing effect to code blocks
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const codeBlock = entry.target;
+                    const originalText = codeBlock.textContent;
+                    typeWriter(codeBlock, originalText, 30);
+                    observer.unobserve(codeBlock);
+                }
+            });
+        });
+
+        document.querySelectorAll('.code-block').forEach(block => {
+            observer.observe(block);
+        });
+    </script>
+</body>
+</html>
