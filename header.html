@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexiPay - Fixed Mobile Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding-top: 80px; /* Increased padding for header */
+        }
+
+        /* Main Navbar - Fixed */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        /* Logo Section */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2d1b69, #8b5a2b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            max-height: 0;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            max-height: 80vh;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 1rem;
+        }
+
+        .mobile-menu li {
+            margin: 0.5rem 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 1.2rem;
+            color: #333;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .mobile-menu a:hover {
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+            color: white;
+            transform: translateX(8px);
+            border-left: 4px solid white;
+        }
+
+        /* Main Content Container */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+
+        /* Royal Oak Club Section */
+        .royal-oak-section {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            color: white;
+            text-align: center;
+        }
+
+        .royal-oak-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .royal-oak-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        /* Beverage Categories Grid */
+        .beverage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .beverage-category {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .beverage-category:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-items {
+            list-style: none;
+            padding: 0;
+        }
+
+        .category-items li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .category-items li:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .category-items li:last-child {
+            border-bottom: none;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .search-bar::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .nav-container {
+                height: 60px;
+                padding: 0 15px;
+            }
+
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            body {
+                padding-top: 70px;
+            }
+
+            .mobile-menu {
+                top: 60px;
+            }
+
+            .royal-oak-title {
+                font-size: 2rem;
+            }
+
+            .royal-oak-subtitle {
+                font-size: 1rem;
+            }
+
+            .beverage-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+
+            .main-content {
+                padding: 1rem 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .royal-oak-title {
+                font-size: 1.8rem;
+                flex-direction: column;
+            }
+
+            .beverage-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .royal-oak-section {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ffd93d, #ff6b6b);
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <div class="logo-icon">💳</div>
+                <span class="logo-text">FlexiPay</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="featuer.html">Features</a></li>
+                <li><a href="shop3.html">Flexible Installment and Billing Shop</a></li>
+                <li><a href="manu.html">Menu</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="docs.html">Docs</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="features.html">✨ Features</a></li>
+            <li><a href="shop3.html">🛒 Flexible Installment and Billing Shop</a></li>
+            <li><a href="menu.html">💰 Menu</a></li>
+            <li><a href="support.html">🛠️ Support</a></li>
+            <li><a href="docs.html">📚 Docs</a></li>
+            <li><a href="contact.html">📞 Contact</a></li>
+        </ul>
+    </div>
+
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Search functionality
+        const searchBar = document.querySelector('.search-bar');
+        const categories = document.querySelectorAll('.beverage-category');
+
+        searchBar.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            categories.forEach(category => {
+                const categoryTitle = category.querySelector('.category-title').textContent.toLowerCase();
+                const categoryItems = category.querySelectorAll('.category-items li');
+                let hasMatch = false;
+
+                // Check if category title matches
+                if (categoryTitle.includes(searchTerm)) {
+                    hasMatch = true;
+                }
+
+                // Check if any item matches
+                categoryItems.forEach(item => {
+                    const itemText = item.textContent.toLowerCase();
+                    if (itemText.includes(searchTerm)) {
+                        hasMatch = true;
+                        item.style.background = 'rgba(255, 107, 107, 0.3)';
+                    } else {
+                        item.style.background = 'transparent';
+                    }
+                });
+
+                // Show/hide category based on match
+                if (hasMatch || searchTerm === '') {
+                    category.style.display = 'block';
+                } else {
+                    category.style.display = 'none';
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
